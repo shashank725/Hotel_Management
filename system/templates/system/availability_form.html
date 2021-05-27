@@ -1,0 +1,14 @@
+{% extends 'system/base.html' %}
+
+{% block tittle %} Sights {% endblock %}
+
+{% block content %}
+    
+    <form action="" method="POST">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Book Room </button>
+    </form>
+
+
+{% endblock %}

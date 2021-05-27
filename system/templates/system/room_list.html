@@ -3,6 +3,9 @@
 {% block tittle %} Glug {% endblock %}
 
 {% block content %}
+    {% for room in room_list %}
+    <h2>{{ room }}</h2>
+    {% endfor %}
 
 
 {% endblock %}

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block tittle %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/styles.css' %}"/>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navwrapper">
+                <div class="info">
+                    <ul class="d">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Events Gallery</a></li>
+                        <li><a href="#">About US</a></li>
+                        <li><a href="#">Audition</a></li>
+                        <li class="c"><a href="#">Sign In | Sign up</a></li>
+                    </ul>
+                </div>
+    
+            </div>
+    
+        </nav>
+    </header>
+    <div class="content" name="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+
+    <script src="" async defer></script>
+</body>
+</html>
