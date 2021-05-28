@@ -3,21 +3,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block tittle %} {% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'main/styles.css' %}"/>
+    <title>{% block tittle %}{% endblock %}</title>
+    {% block css %}<link rel="stylesheet" type="text/css" href="{% static 'system/base.css' %}"/>{% endblock %}
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="navwrapper">
                 <div class="info">
-                    <ul class="d">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Events Gallery</a></li>
-                        <li><a href="#">About US</a></li>
-                        <li><a href="#">Audition</a></li>
-                        <li class="c"><a href="#">Sign In | Sign up</a></li>
+                    <ul class="a">
+                        <li class="1"><a href="#">Home</a></li>
+                        <li class="c"><a href="#">Book Now</a></li>
                     </ul>
                 </div>
     
@@ -27,6 +23,7 @@
     </header>
     <div class="content" name="content">
         {% block content %}
+
 
         {% endblock %}
     </div>

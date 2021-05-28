@@ -1,8 +1,21 @@
 {% extends 'system/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block tittle %} Glug {% endblock %}</title>
+</head>
+<body>
+    <h1>Glug Hotels</h1>
 
-{% block tittle %} Glug {% endblock %}
+    {% block content %}
 
-{% block content %}
+    <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, laudantium molestias id dicta deserunt architecto iure! Numquam quam ut doloribus laboriosam, unde atque beatae, autem asperiores, delectus iusto eveniet. Similique.
+    </div>
 
+    {% endblock %}
 
-{% endblock %}
+</body>
+</html>

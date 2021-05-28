@@ -14,11 +14,33 @@ def homepage(request):
 def sights(request):
     return render(request, 'system/sights.html')
 
-class RoomList(generic.ListView):
+class RoomListView(generic.ListView):
     model = Room
 
 class BookingList(generic.ListView):
     model = Booking
+
+
+"""
+class RoomDetailView(generic.View):
+    def post(self, request, *args, **kwargs):
+        room_list = Room.objects.filter(category=category)
+        available_rooms = []
+        for room in room_list:
+            if check_availability(room, data['check_in'], data['check_out']):
+                available_rooms.append(room)
+        if len(available_rooms) > 0:
+            room = available_rooms[0]
+            booking = Booking.objects.create(
+                user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out']
+            )
+            booking.save()
+            return HttpResponse(booking)
+        else:
+            return HttpResponse('This category of rooms are booked.')
+"""
+
+
 
 class BookingView(generic.FormView):
     form_class = AvailabilityForm
@@ -37,7 +59,7 @@ class BookingView(generic.FormView):
                 user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out']
             )
             booking.save()
-            return HttpResponse("Booked")
+            return HttpResponse(booking)
         else:
             return HttpResponse('This category of rooms are booked.')
 
@@ -52,4 +74,4 @@ def check_availability(room, check_in, check_out):
             avail_list.append(True)
         else:
             avail_list.append(False)
-        return all(avail_list)
+    return all(avail_list)
