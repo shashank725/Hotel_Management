@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.conf.global_settings import STATIC_URL
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -31,13 +33,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'system.apps.SystemConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Django Allauth
+    'django.contrib.sites',
+    'system.apps.SystemConfig', #App
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +57,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
 
 ROOT_URLCONF = 'hotel.urls'
 
@@ -113,6 +132,24 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SITE_ID = 2
+
+LOGIN_REDIRECT_URL= '/book/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'globus': {
+        'SCOPE': [
+            'openid',
+            'profile',
+            'email',
+            'urn:globus:auth:scope:transfer.api.globus.org:all'
+        ]
+    }
+}
+
+
+        # Provider specific settings
 
 
 # Static files (CSS, JavaScript, Images)

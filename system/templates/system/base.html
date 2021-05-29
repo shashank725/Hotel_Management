@@ -8,18 +8,21 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="navwrapper">
-                <div class="info">
-                    <ul class="a">
-                        <li class="1"><a href="#">Home</a></li>
-                        <li class="c"><a href="#">Book Now</a></li>
-                    </ul>
-                </div>
-    
+        <div class="closer">
+            <div class="line">
+                <ul class="a">
+                    <li class="1"><a href="#">Home</a></li>
+                    <li class="c"><a href="#">Book Now</a></li>
+                </ul>
             </div>
-    
-        </nav>
+        </div>
+        
+        <div class="navbar toggle">
+            Hello
+            
+            <div class="cross"></div>
+            
+        </div>
     </header>
     <div class="content" name="content">
         {% block content %}
@@ -29,6 +32,6 @@
     </div>
 
 
-    <script src="" async defer></script>
+    <script src="{% static 'system/main.js' %}" async defer></script>
 </body>
 </html>
