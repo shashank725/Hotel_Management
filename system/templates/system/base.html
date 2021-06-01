@@ -3,35 +3,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block tittle %}{% endblock %}</title>
-    {% block css %}<link rel="stylesheet" type="text/css" href="{% static 'system/base.css' %}"/>{% endblock %}
+    <link rel="stylesheet" href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'system/base.css' %}">
+    {% block head %} {% endblock %}
 </head>
 <body>
-    <header>
-        <div class="closer">
-            <div class="line">
-                <ul class="a">
-                    <li class="1"><a href="#">Home</a></li>
-                    <li class="c"><a href="#">Book Now</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="navbar toggle">
-            Hello
-            
-            <div class="cross"></div>
-            
-        </div>
-    </header>
-    <div class="content" name="content">
-        {% block content %}
+  <header>
+    <div class="wrapper">
 
+      <ul>
+        <li class="active"><a href="{% url 'system:homepage' %}" style="position: fixed; left: 7rem; size: 10rem;">Home</a></li>
+        <li class="same"><a href="#" style="margin-right: 120px;">Menu</a></li>
+        <li class="same"><a href="{% url 'system:BookingView' %}">Book Your Stay</a></li>
+      </ul>
+    </div>
 
-        {% endblock %}
+    <div class="closer">
+      <div class="line"></div>
+    </div>
+
+    <div class="navbar toggle">
+      Hello
+
+      <div class="cross"></div>
     </div>
 
 
-    <script src="{% static 'system/main.js' %}" async defer></script>
+  </header>
+
+
+    {% block content %}
+
+
+    {% endblock %}
+
+
+    <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+    </script>
+    <script src=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
+    </script>
+    <script>
+      document.querySelector('.closer').addEventListener('click', () => {
+          document.querySelector('.navbar').classList.toggle('toggle');
+        })
+
+        document.querySelector('.cross').addEventListener('click', () => {
+          document.querySelector('.navbar').classList.toggle('toggle');
+        })
+    </script>
 </body>
 </html>

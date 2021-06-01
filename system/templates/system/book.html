@@ -1,84 +1,58 @@
+{% extends 'system/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Detail</title>
-    <script src="https://kit.fontawesome.com/692189991f.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'system/detail.css' %}">
-</head>
-<body>
-    <div class="content">
 
-        <!-- Room Image -->
-        <div class="image">
-            <img
-                src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60">
+{% block tittle %} Book Your Stay {% endblock %}
+
+{% block head %} <link rel="stylesheet" href="{% static 'system/book.css' %}"> {% endblock %}
+
+{% block content %}
+  <div class="bg"></div>
+
+    <form id="booking-form" action="" method="POST">
+    {% csrf_token %}
+      <div class="login-wrap">
+        <div class="login-html">
+          <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" style="font-family: Century Gothic;">Book Your Stay</label>
+          <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+          <div class="login-form">
+            <div class="sign-in-htm">
+              <div class="group">
+                <label for="id_room_category" class="label">Room Category :</label>
+                <select name="room_category" id="id_room_category" class="select">
+                  <option value="STD" style="color: black; font-family: Century Gothic;">Standard</option>
+                  <option value="CR" style="color: black; font-family: Century Gothic;">Connecting Room</option>
+                  <option value="DEL" style="color: black; font-family: Century Gothic;">Deluxe</option>
+                  <option value="KIN" style="color: black; font-family: Century Gothic;">King</option>
+                  <option value="QUE" style="color: black; font-family: Century Gothic;">Queen</option>
+                  <option value="SUI" style="color: black; font-family: Century Gothic;">Suite</option>
+                  <option value="PEN" style="color: black; font-family: Century Gothic;">Penthouse</option>
+              </select>
+              </div>
+              <div class="group">
+                <label for="id_check_in" class="label">Check In</label>
+                <input type="datetime-local" name="check_in" id="id_check_in" class="input">
+              </div>
+              <div class="group">
+                <label for="id_check_out" class="label">Check Out</label>
+                <input type="datetime-local" name="check_out" id="id_check_out" class="input">
+              </div>
+              <div class="group">
+                <button type="submit" class="button" style="font-family: Century Gothic;">Book</button>
+              </div>
+              <div class="hr"></div>
+              {% if user.is_authenticated %}
+              <div class="foot-lnk">
+                <a href="{% url 'system:BookingList' %}" style="color: azure;">Your Bookings</a>
+              </div>
+              {% else %}
+              <div class="foot-lnk">
+                <a href="http://127.0.0.1:8000/accounts/login/" style="color: azure;">Sign In</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
         </div>
+      </div>
+    </form>
 
-        <!-- Room Details -->
-        <div class="room">
-
-            <!-- Div 1: Back to Home -->
-            <div class="home">
-                <a href="{% url 'system:homepage' %}"><i class="fas fa-arrow-alt-circle-left">Home</i></a>
-            </div>
-
-            <!-- Div 2: Room Information -->
-            <div class="room-info">
-                <h1>Book Your Stay !!</h1>
-                {% if user.is_authenticated %}
-                <h3>Welcome, {{ user.username }}</h3>
-                {% else %}
-                <h3>Welcome, Please Log in First</h3>
-                {% endif %}
-                <p class="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio rem saepe culpa architecto tempora
-                    numquam debitis reiciendis! Quaerat laudantium consequuntur doloribus quod placeat consectetur
-                    veniam,
-                    rerum repellendus magnam labore. </p>
-            </div>
-
-            <!-- Div 3: Room Booking Form -->
-            <form id="booking-form" action="" method="POST">
-
-                {% csrf_token %}
-
-                <!-- Room Category -->
-                <div class="input-div">
-                    <label for="id_room_category">Room Category : </label>
-                    <select name="room_category" id="id_room_category">
-                        <option value="STD">Standard</option>
-                        <option value="CR">Connecting Room</option>
-                        <option value="DEL">Deluxe</option>
-                        <option value="KIN">King</option>
-                        <option value="QUE">Queen</option>
-                        <option value="SUI">Suite</option>
-                        <option value="PEN">Penthouse</option>
-                    </select>
-                </div>
-
-                <!-- Check in -->
-                <div class="input-div">
-                    <label for="id_check_in">Check In : </label>
-                    <input type="datetime-local" id="id_check_in" name="check_in">
-                </div>
-
-                <!-- Check out -->
-                <div class="input-div">
-                    <label for="id_check_out">Check Out : </label>
-                    <input type="datetime-local" id="id_check_out" name="check_out">
-                </div>
-
-                <!-- Input Div -->
-                <div class="input-div">
-                    <button type="submit">Book the Room</button>
-                </div>
-
-            </form>
-
-        </div> <!-- END Room Div -->
-
-    </div> <!-- END Main Content Div -->
-
-</body>
-</html>
+{% endblock %}

@@ -1,11 +1,7 @@
-body{
-    height: 100%;
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    font-family: Century Gothic;
+* {
+	margin: 0;
+	padding: 0;
 }
-
 
 .navbar {
 	background-color: #363636;
@@ -35,10 +31,11 @@ body{
 }
 .line {
 	position: relative;
-	margin-top: 3.5rem;
+	margin-top: 1.8rem;
+  margin-right: 1.5rem;
 	width: 2rem;
             height: 2px;
-            background-color: #000;
+            background-color: white;
             display: inline-block;
 
 }
@@ -49,7 +46,7 @@ body{
 		width: 3rem;
 	   top: -0.8rem;
             height: 2px;
-            background-color: #000;
+            background-color: white;
             display: inline-block;
 }
 .line::before {
@@ -58,7 +55,7 @@ body{
             left: 0;
 		width: 1.2rem;
             height: 2px;
-            background-color: #000;
+            background-color: white;
 	 top: 0.8rem;
             display: inline-block;
 }
@@ -68,7 +65,7 @@ body{
 	position: absolute;
 	right: 5%;
 	top: 5%;
-}   
+}
 
 .cross::after {
 	 content: "";
@@ -95,137 +92,79 @@ body{
 
 
 
-
-
-
-
-
-
-
-
-
-
-ul{
-    float: right;
-    margin-right: 50px;
+.carousel-item {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 2;
+  width: 100%;
 }
+.overlay2 {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  opacity: 0.7;
+}
+#myCarousel {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+.liner {
+  position: absolute;
+  background-color: white;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  height: 5%;
+  border-top: solid black 2px;
+  margin-top: -7%;
+}
+
+.part-1 {
+  padding-left: 10%;
+  font-size: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 7%;
+  color: #14b6d3;
+  font-weight: 600;
+  position: absolute;
+  margin-top: 28rem;
+}
+.part-2 {
+  padding-left: 10%;
+  font-size: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 15%;
+  color: white;
+  font-weight: 500;
+  position: absolute;
+  margin-top: 26rem;
+}
+
+
 ul li{
-    display: inline-flex;
-    font-size: x-large;
-    margin-top: 20px;
-}
+  display: inline-block;
+  font-size: x-large;
+  margin-top: 60px; 
 
+}
+ul li.same{
+  float: right;
+  margin-right: 40px;
+}
 ul li a{
-    margin: 0px 50px;
-    text-decoration: dashed;
-    color: rgb(196, 135, 44);
-    padding: 5px 30px;
-    border: 2px solid rgb(0, 0, 0);
+  color:azure;
+  padding: 5px 20px;
+  border: 1px solid azure;
+  transition: 0.6s ease-in;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*{
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
-}
-body{
-    font-family: sans-serif;
-    background-color: rgb(46, 47, 48);
-    color: rgb(236, 235, 228);
-    line-height: 1.5;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.content{
-    display: flex;
-    flex-direction: column;
-}
-
-.header{
-    flex: 1;
-    display: flex;
-    flex-flow: row-reverse wrap;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.headings{
-    flex:1.5;
-}
-.home{
-    flex:0.1;
-    
-}
-
-.bookings{
-    margin-top: 2rem;
-    flex:1;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-.booking{
-    flex:1;
-    max-width:20vw;
-    min-width: 20rem;
-    text-align: left;
-    border: 1px solid #dbdbdb;
-    padding:1rem;
-    border-radius: 0.75rem;
-    margin:1rem;
-}
-.booking:hover{
-    cursor: pointer;
-
-}
-img{
-    max-width: 100%;
-}
-a i{
-    margin: 1rem;
-    color:rgb(236, 235, 228);
-    text-decoration: none;
-}
-.home a i{
-    font-size: 1.7rem;
-
-}
-
-h1,h2{
-    margin:1rem;
-}
-.booking a i{
-    font-size: 1.1rem;
-    visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-}
-
-.booking:hover .cancel a i,.cancel a i:hover{
-    visibility: visible;
-  opacity: 1;
-}
-.cancel a i:hover{
-    color: rgb(206, 43, 43);
-    
+ul li a:hover{
+  text-decoration: dashed;
+  background-color: rgb(252, 249, 249);
+  color: black;
 }

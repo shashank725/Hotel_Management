@@ -1,21 +1,44 @@
 {% extends 'system/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block tittle %} Glug {% endblock %}</title>
-</head>
-<body>
-    <h1>Glug Hotels</h1>
 
-    {% block content %}
+{% block tittle %} Glug {% endblock %}
 
-    <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, laudantium molestias id dicta deserunt architecto iure! Numquam quam ut doloribus laboriosam, unde atque beatae, autem asperiores, delectus iusto eveniet. Similique.
-    </div>
+{% block head %} {% endblock %}
 
-    {% endblock %}
+{% block content %}
+    <div class="homepage">
+    <div class=" carousel slide " data-ride="false" id="myCarousel" data-interval="3000">
+      <div class="carousel-inner">
+         <div class="carousel-item active " style="background-image:url({% static 'system/1113472.jpg' %})">
+          <div class="overlay2"></div>
+                 <h1 class="part-1">Glug</h1>
+                 <h2 class="part-2">Hotels and Restaurants</h2>
+         </div>
+         <div class="carousel-item" style="background-image:url({% static 'system/1113471.jpg' %})">
+          <div class="overlay2"></div>
+          <h1 class="part-1">Santorini</h1>
+          <h2 class="part-2">Greece</h2>
+        </div>
+        <div class="carousel-item" style="background-image:url({% static 'system/1113470.jpg' %})">
+          <div class="overlay2"></div>
+          <h1 class="part-1">We make the</h1>
+          <h2 class="part-2">Ordinary, Extraordinary !</h2>
+        </div>
 
-</body>
-</html>
+        </div>
+        <!-- Buttons -->
+        <a class="carousel-control-prev playbutton" id="button1" href="#myCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next playbutton" id="button2" href="#myCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+  </div>
+
+
+
+
+{% endblock %}
