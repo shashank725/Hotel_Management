@@ -1,46 +1,137 @@
-{% extends 'system/base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block tittle %} Booking List{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'system/booking.css' %}">
+</head>
+<body>
+  <header>
+    <div class="wrapper">
 
-{% block tittle %} Booking List {% endblock %}
+      <ul>
+        <li class="active"><a href="{% url 'system:homepage' %}" style="position: fixed; top: 2.5rem; left: 10rem;">Home</a></li>
+        <li class="same"><a href="#" style="position: fixed; top: 2.5rem; left: 103.5rem;">Menu</a></li>
+        <li class="same"><a href="{% url 'system:BookingView' %}"style="position: fixed; top: 2.5rem; left: 85rem;">Book Your Stay</a></li>
+      </ul>
+    </div>
 
-{% block head %} <link rel="stylesheet" href="{% static 'system/booking_list.CSS' %}"> {% endblock %}
+    <div class="closer">
+      <div class="line"></div>
+    </div>
 
+    <div class="navbar toggle">
+      <div class="bodywrapper">
+        <div class="screenwrapper">
+          <div class="col1">
+            <h3>Hotel</h3>
+            <div class="subscreen">
+              <ul>
+                <li>Location & Position</li>
+                <li>Lifestyle</li>
+                <li>Virtual Tour</li>
+                <li>Our Story</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col2">
+            <h3>Rooms</h3>
+            <div class="subscreen">
+              <ul>
+                <li>Standard</li>
+                <li>Connecting Room</li>
+                <li>Deluxe</li>
+                <li>King/Queen</li>
+                <li>Suite</li>
+                <li>Penthouse</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col3">
+            <h3>Dinning</h3>
+            <div class="subscreen">
+              <ul>
+                <li>Wine Cellar</li>
+                <li>SeaScape Cocktail Bar</li>
+                <li>Rooftop Terrace</li>
+                <li>SeaScape Restaurant</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col4">
+            <h3>Services</h3>
+            <div class="subscreen">
+              <ul>
+                <li>Romantic Spa</li>
+                <li>Fitness & Sailing</li>
+                <li>Meeting & Events</li>
+                <li>Romantic Retreat</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col5">
+            <div class="subscreen5">
+              <ul>
+                <li style="margin-top: 90">Offers</li>
+                <li>Gallery</li>
+                <li>Journal</li>
+                <li>Contact Us</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="login" style="position: fixed; bottom: 65px; left: 47%; font-size: 1.5rem; font-family: 'Shadows Into Light', cursive;">
+      {% if user.is_authenticated %}
+        <a href="http://127.0.0.1:8000/accounts/logout/" style="color: azure;">Logout</a>
+      {% else %}
+        <a href="http://127.0.0.1:8000/accounts/login/" style="color: azure;">Sign In | Sign Up</a>
+      {% endif %}
+      </div>
+
+      <div class="cross"></div>
+    </div>
 {% block content %}
-<div class="content">
+
+  </header>
+  <div class="content">
     <div class="header">
-        <div class="headings">
-            <h1>Your Bookings</h1>
-            <h2>Welcome dear {{user}}</h2>
+        <div class="headings" style="position: absolute; top: 7rem; left: 44%; font-family: Century Gothic;">
+            <h1 style="font-size: 3rem; position: fixed; top: 7rem; left: 48.5rem; color: azure;">Your Bookings</h1>
+            <h2 style="font-size: 2rem; position: fixed; top: 11rem; left: 49.7rem; color: azure;">Welcome {{user}}</h2>
         </div>
 
     </div>
-
-    <div class="bookings">
-        {% for booking in booking_list %}
-        <div class="booking">
-            <img src=""
-                alt="">
-            <div class="category">
-                <h2>{{booking.get_room_category}} Suite</h2>
-            </div>
-            <div class="from">
-                <h3>From: {{booking.check_in}}</h3>
-            </div>
-            <div class="to">
-                <h3>To: {{booking.check_out}}</h3>
-            </div>
-            <div class="beds">
-                <h3>Beds: {{booking.room.beds}}</h3>
-            </div>
-            <div class="capacity">
-                <h3>Capacity: {{booking.room.capacity}}</h3>
-            </div>
-            <div class="cancel"><a href="{{booking.get_cancel_booking_url}}" class="invisible"><i
-                        class="far fa-2x fa-times-circle"> Cancel
-                        Booking</i></a></div>
-
+  {% for booking in booking_list %}
+  <div class="container">
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h2>{{booking.room.number}}</h2>
+          <h3>{{booking.get_room_category}}</h3>
+          <p>From: {{booking.check_in}} <br>To: {{booking.check_out}} <br> Beds: {{booking.room.beds}} </p>
+          <a href="{{booking.get_cancel_booking_url}}">Cancel
+            Booking</a>
         </div>
-        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
     </div>
 </div>
+
 {% endblock %}
+
+<script>
+  document.querySelector('.closer').addEventListener('click', () => {
+      document.querySelector('.navbar').classList.toggle('toggle');
+    })
+
+    document.querySelector('.cross').addEventListener('click', () => {
+      document.querySelector('.navbar').classList.toggle('toggle');
+    })
+</script>  
+</body>
+</html>

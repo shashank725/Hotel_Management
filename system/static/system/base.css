@@ -31,7 +31,7 @@
 }
 .line {
 	position: relative;
-	margin-top: 1.8rem;
+	margin-top: 2.1rem;
   margin-right: 1.5rem;
 	width: 2rem;
             height: 2px;
@@ -156,6 +156,7 @@ ul li{
 ul li.same{
   float: right;
   margin-right: 40px;
+  margin-top: 0%;
 }
 ul li a{
   color:azure;
@@ -167,4 +168,42 @@ ul li a:hover{
   text-decoration: dashed;
   background-color: rgb(252, 249, 249);
   color: black;
+}
+
+
+
+
+
+.bodywrapper{
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.705), rgba(0, 0, 0, 0.692)), url(astarte-suites.jpg);
+  background-size: cover;
+}
+.screenwrapper{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.col1, .col2, .col3, .col4{
+  height: 95vh;
+  width: 21%;
+}
+.col5{
+  height: 95vh;
+  width: 16%;
+}
+h3{
+  display: flex;
+  justify-content: center;
+  margin-top: 35%;
+  margin-bottom: 10%;
+  font-family: 'Shadows Into Light', cursive;
+  text-decoration: underline;
+}
+ul li{
+  display: flex;
+  justify-content: center;
+  padding: 0%;
+  font-family: Century Gothic;
 }

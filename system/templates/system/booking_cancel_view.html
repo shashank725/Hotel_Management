@@ -1,54 +1,28 @@
+{% extends 'system/booking_list.html' %}
 {% load static %}
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Detail</title>
-    <script src="https://kit.fontawesome.com/692189991f.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'system/detail.css' %}">
-</head>
-<body>
-    <div class="content">
 
-        <!-- Room Image -->
-        <div class="image">
-            <img
-                src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60">
-        </div>
+{% block tittle %} Cancel Booking {% endblock %}
 
-        <!-- Room Details -->
-        <div class="room">
+{% block content %}
 
-            <!-- Div 1: Back to Home -->
-            <div class="home">
-                <a href="{% url 'system:homepage' %}"><i class="fas fa-arrow-alt-circle-left">Home</i></a>
+<div class="container">
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h2></h2>
+          <h3>Cancel</h3>
+          <p>Are You Sure you Wanna Cancel Your Booking ? <br> Room No. {{ booking.room.number }} <br> {{ booking.get_room_category }}</p>
+          <form id="booking-form" action="" method="POST">
+
+            {% csrf_token %}
+            <div class="input-div">
+                <button type="submit" style="background: red; padding: 8px 20px; border-radius: 5px; 
+                color: white; margin-top: 20px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); transition: 0.5s;">Confirm</button>
             </div>
-
-            <!-- Div 2: Room Information -->
-            <div class="room-info">
-                <h1>{{room_category}}</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio rem saepe culpa architecto tempora
-                    numquam debitis reiciendis! Quaerat laudantium consequuntur doloribus quod placeat consectetur
-                    veniam,
-                    rerum repellendus magnam labore. </p>
-            </div>
-
-            <!-- Div 3: Room Booking Form -->
-            <form id="booking-form" action="" method="POST">
-
-                {% csrf_token %}
-
-                <h3>Are You Sure you Wanna Cancel Your Booking ? Room No. {{ booking.room.number }} {{ booking.get_room_category }}</h3>
-                <!-- Input Div -->
-                <div class="input-div">
-                    <button type="submit">Cancel the Booking</button>
-                </div>
 
             </form>
-
-        </div> <!-- END Room Div -->
-
+        </div>
+      </div>
     </div>
-
-</body>
-</html>
+            
+{% endblock %}

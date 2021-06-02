@@ -1,10 +1,119 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap");
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+body{
+  background-image: rgba(0, 0, 0, 0.705), rgba(0, 0, 0, 0.692)), url(download.jpg);
+}
+.navbar {
+	background-color: #363636;
+	color: #fff;
+	position: fixed;
+	z-index: 1000;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.toggle {
+	display:  none;
+}
+
+.closer{
+	color: #000;
+	wdith: 6rem;
+}
+
+.closer {
+	position: absolute;
+	right: 5%;
+	top: 5%;
+	cursor: pointer;
+}
+.line {
+	position: relative;
+	margin-top: 0.8rem;
+  margin-right: 1.5rem;
+	width: 2rem;
+            height: 2px;
+            background-color: white;
+            display: inline-block;
+
+}
+.line::after {
+	 content: "";
+            position: absolute;
+            left: 0;
+		width: 3rem;
+	   top: -0.8rem;
+            height: 2px;
+            background-color: white;
+            display: inline-block;
+}
+.line::before {
+	 content: "";
+            position: absolute;
+            left: 0;
+		width: 1.2rem;
+            height: 2px;
+            background-color: white;
+	 top: 0.8rem;
+            display: inline-block;
+}
+
+.cross {
+	cursor: pointer;
+	position: absolute;
+	right: 5%;
+	top: 5%;
+}
+
+.cross::after {
+	 content: "";
+            position: absolute;
+            left: 0;
+		width: 3rem;
+	   top: 0rem;
+            height: 2px;
+            background-color: #fff;
+            display: inline-block;
+	transform: rotate(135deg);
+}
+.cross::before {
+	 content: "";
+            position: absolute;
+            left: 0;
+		width: 3rem;
+            height: 2px;
+            background-color: #fff;
+	 top: 0rem;
+            display: inline-block;
+	transform: rotate(-135deg);
+}
+ul li{
+  text-decoration: none;
+  display: inline-block;
+  font-size: x-large;
+
+}
+ul li a{
+  text-decoration: none;
+  color:azure;
+  padding: 5px 20px;
+  border: 1px solid azure;
+  transition: 0.6s ease-in;
+}
+ul li a:hover{
+  text-decoration: dashed;
+  background-color: rgb(252, 249, 249);
+  color: black;
+}
+
+
 
 body {
   display: flex;
@@ -69,7 +178,6 @@ body .container .card .box:before {
   height: 100%;
   background: rgba(255, 255, 255, 0.03);
 }
-
 body .container .card .box .content {
   padding: 20px;
   text-align: center;
@@ -115,4 +223,43 @@ body .container .card .box .content a:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
   background: red;
   color: white;
+}
+
+
+
+
+.bodywrapper{
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.705), rgba(0, 0, 0, 0.692)), url(astarte-suites.jpg);
+  background-size: cover;
+}
+.screenwrapper{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.col1, .col2, .col3, .col4{
+  height: 95vh;
+  width: 21%;
+}
+.col5{
+  height: 95vh;
+  width: 16%;
+}
+h3{
+  display: flex;
+  justify-content: center;
+  margin-top: 35%;
+  margin-bottom: 10%;
+  font-family: 'Shadows Into Light', cursive;
+  text-decoration: underline;
+  font-size: xx-large;
+}
+ul li{
+  display: flex;
+  justify-content: center;
+  padding: 0%;
+  font-family: Century Gothic;
+  margin-bottom: 10%;
 }
