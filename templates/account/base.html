@@ -4,6 +4,7 @@
     <title>{% block head_title %}{% endblock %}</title>
     {% block extra_head %}
     {% endblock %}
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <style>
       .ball {
@@ -30,14 +31,14 @@
     {% endif %}
 
     <div style="margin: 80px 100px;">
-      <strong>Menu:</strong>
+      <strong style="font-size: x-large;">Menu :</strong>
       <ul>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        <li><a href="{% url 'account_email' %}" style="font-size: 1.2rem;">Change E-mail</a></li>
+        <li><a href="{% url 'account_logout' %}" style="font-size: 1.2rem;">Sign Out</a></li>
         {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        <li><a href="{% url 'account_login' %}" style="font-size: 1.2rem;">Sign In</a></li>
+        <li><a href="{% url 'account_signup' %}" style="font-size: 1.2rem;">Sign Up</a></li>
         {% endif %}
       </ul>
     </div>
