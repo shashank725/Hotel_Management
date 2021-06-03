@@ -21,14 +21,14 @@ Prerequisites
 1. python3
 2. pip3
 
-1. Clone the project.
+3. Clone the project.
 
     ```shell
     git clone https://github.com/shashank725/Hotel_Management.git
 
     ```
 
-2. Activate the virtual environemnt.
+4. Activate the virtual environemnt.
 
     #### For Linux/Mac OSX
 
@@ -44,12 +44,12 @@ Prerequisites
 
     ```
 
-3. Run the development server
+5. Run the development server
     ```
     python manage.py runserver
 
     ```
-4. Head to server http://127.0.0.1:8000
+6. Head to server http://127.0.0.1:8000
 
 
 
