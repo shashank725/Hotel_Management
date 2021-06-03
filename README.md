@@ -12,7 +12,7 @@ An app where you can Book romms and view your bookings
 
 <p float="left">
   <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" width="600" />
-  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" height="350" width="400" />
+  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" height="300" width="400" />
 </p>
 
 <h3>Starting the project</h3>
