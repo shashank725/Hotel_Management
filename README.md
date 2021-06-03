@@ -21,14 +21,35 @@ Prerequisites
 1. python3
 2. pip3
 
-3. Clone the project.
+3. Create a new directory.
+
+  ```shell
+  mkdir Hotel_Management
+  cd Hotel_Management
+  ```
+
+4. Create a virtual environment with venv (install virtualenv, if its not installed).
+
+ #### For Linux/Mac OSX
+ ```shell
+  sudo apt-get install python3-venv
+  python3 -m venv env
+  ```
+  
+  #### For Windows
+  ```shell
+  pip install virtualenv
+  python -m venv env
+  ```
+
+5. Clone the project.
 
     ```shell
     git clone https://github.com/shashank725/Hotel_Management.git
 
     ```
 
-4. Activate the virtual environemnt.
+6. Activate the virtual environemnt.
 
     #### For Linux/Mac OSX
 
@@ -44,12 +65,12 @@ Prerequisites
 
     ```
 
-5. Run the development server
+7. Run the development server
     ```
     python manage.py runserver
 
     ```
-6. Head to server http://127.0.0.1:8000
+8. Head to server http://127.0.0.1:8000
 
 
 
