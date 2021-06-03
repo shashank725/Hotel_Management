@@ -11,8 +11,8 @@ An app where you can Book romms and view your bookings
 <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot3.png" alt="book" style="width:200px;"/>
 
 <p float="left">
-  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" width="100" />
-  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" width="100" />
+  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" width="50%" />
+  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" width="50%" />
 </p>
 
 <h3>Starting the project</h3>
