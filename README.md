@@ -30,23 +30,22 @@ Prerequisites
 
 4. Create a virtual environment with venv (install virtualenv, if its not installed).
 
- #### For Linux/Mac OSX
- ```shell
-  sudo apt-get install python3-venv
-  python3 -m venv env
-  ```
+   #### For Linux/Mac OSX
+    ```shell
+    sudo apt-get install python3-venv
+    python3 -m venv env
+    ```
   
-  #### For Windows
-  ```shell
-  pip install virtualenv
-  python -m venv env
-  ```
+   #### For Windows
+    ```shell
+    pip install virtualenv
+    python -m venv env
+    ```
 
 5. Clone the project.
 
     ```shell
     git clone https://github.com/shashank725/Hotel_Management.git
-
     ```
 
 6. Activate the virtual environemnt.
