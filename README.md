@@ -51,25 +51,38 @@ Prerequisites
 6. Activate the virtual environemnt.
 
     #### For Linux/Mac OSX
-
     ```shell
     source env/bin/activate
 
     ```
 
     #### For Windows
-
     ```shell
     venv\Scripts\activate
 
     ```
+   
+7. Install the requirements.
 
-7. Run the development server
+    ```shell
+    cd Hotel_Management
+    pip install -r requirements.txt
+    ```
+ 
+8. Run the Migrations
+
+    ```shell
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+9. Run the development server
+
     ```
     python manage.py runserver
 
     ```
-8. Head to server http://127.0.0.1:8000
+10. Head to server http://127.0.0.1:8000
 
 
 
