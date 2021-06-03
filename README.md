@@ -10,10 +10,7 @@ An app where you can book rooms and view your bookings !
 
 <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot3.png" alt="book" style="width:200px;"/>
 
-<p float="left">
-  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" width="495" />
-  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" width="495" />
-</p>
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" alt="book" style="width:200px;"/>
 
 <h3>Starting the project</h3>
 
@@ -58,7 +55,7 @@ Prerequisites
 
     #### For Windows
     ```shell
-    venv\Scripts\activate
+    env\Scripts\activate
 
     ```
    
