@@ -12,7 +12,7 @@ An app where you can book rooms and view your bookings !
 
 <p float="left">
   <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" width="550" />
-  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" height="300" width="450" />
+  <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot5.png" height="300" width="430" />
 </p>
 
 <h3>Starting the project</h3>
