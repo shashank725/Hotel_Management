@@ -30,14 +30,14 @@ Prerequisites
 
 2. Activate the virtual environemnt.
 
-    ### For Linux/Mac OSX
+    #### For Linux/Mac OSX
 
     ```shell
     source env/bin/activate
 
     ```
 
-    ### For Windows
+    #### For Windows
 
     ```shell
     venv\Scripts\activate
