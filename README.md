@@ -37,7 +37,7 @@ Prerequisites
 
     ```
 
-    ## For Windows
+    ### For Windows
 
     ```shell
     venv\Scripts\activate
