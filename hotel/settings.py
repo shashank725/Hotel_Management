@@ -133,18 +133,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-SITE_ID = 2
+SITE_ID = 1
 
 LOGIN_REDIRECT_URL= '/book/'
 
-SOCIALACCOUNT_PROVIDERS = {
-    'globus': {
-        'SCOPE': [
-            'openid',
-            'profile',
-            'email',
-            'urn:globus:auth:scope:transfer.api.globus.org:all'
-        ]
+SOCIALACCOUNT_PROVIDERS = SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '69663139476-g1oaql9evk21q5ike78rfq3dmok0l5cq.apps.googleusercontent.com',
+            'secret': 'cyq-hSAkN2KzPrgciNBFtsGx',
+            'key': ''
+        }
     }
 }
 
