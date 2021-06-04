@@ -18,7 +18,11 @@
       <ul>
         <li class="active"><a href="{% url 'system:homepage' %}" style="position: fixed; left: 7rem; size: 10rem;">Home</a></li>
         <li class="same"><a href="#" style="margin-right: 120px;">Menu</a></li>
+        {% if user.is_authenticated %}
         <li class="same"><a href="{% url 'system:BookingView' %}">Book Your Stay</a></li>
+        {% else %}
+        <li class="same"><a href="http://127.0.0.1:8000/accounts/login/">Book Your Stay</a></li>
+        {% endif %}
       </ul>
     </div>
 
