@@ -1,0 +1,281 @@
+*{
+  margin: 0;
+  padding: 0;
+  /* font-family: 'Shadows Into Light', cursive; */
+}
+.screen-wrapper{
+  height: 100vh;
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(1113472.jpg);
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+}
+.nav-bar{
+  display: flex;
+  padding: 30px 100px;
+
+}
+.nav-link1, .nav-link2{
+  flex: 1;
+}
+.nav-link1 ul{
+  display: inline;
+}
+.nav-link2 ul{
+  margin-right: 60px;
+  display: inline;
+  float: right;
+}
+.nav-link1 ul li, .nav-link2 ul li{
+  margin-top: 15px;
+  list-style: none;
+  display: inline-block;
+  padding: 5px;
+}
+.nav-link1 ul li a, .nav-link2 ul li a{
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  border: 2px solid white;
+  padding: 5px 15px;
+  font-family: Century Gothic;
+}
+
+
+
+.navbar {
+background-color: #363636;
+color: #fff;
+position: fixed;
+z-index: 1000;
+height: 100vh;
+top: 0;
+left: 0;
+width: 100%;
+}
+.toggle {
+display:  none;
+}
+.closer{
+color: #000;
+wdith: 6rem;
+}
+.closer {
+position: absolute;
+right: 5%;
+top: 5%;
+cursor: pointer;
+}
+.line {
+position: relative;
+margin-right: 25px;
+width: 2rem;
+          height: 2px;
+          background-color: white;
+          display: inline-block;
+}
+.line::after {
+ content: "";
+          position: absolute;
+          left: 0;
+  width: 3rem;
+   top: -0.8rem;
+          height: 2px;
+          background-color: white;
+          display: inline-block;
+}
+.line::before {
+ content: "";
+          position: absolute;
+          left: 0;
+  width: 1.2rem;
+          height: 2px;
+          background-color: white;
+ top: 0.8rem;
+          display: inline-block;
+}
+.cross {
+cursor: pointer;
+position: absolute;
+right: 5%;
+top: 5%;
+}
+.cross::after {
+ content: "";
+          position: absolute;
+          left: 0;
+  width: 3rem;
+   top: 0rem;
+          height: 2px;
+          background-color: #fff;
+          display: inline-block;
+transform: rotate(135deg);
+}
+.cross::before {
+ content: "";
+          position: absolute;
+          left: 0;
+  width: 3rem;
+          height: 2px;
+          background-color: #fff;
+ top: 0rem;
+          display: inline-block;
+transform: rotate(-135deg);
+}
+
+
+
+.bodywrapper{
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.705), rgba(0, 0, 0, 0.692)), url(astarte-suites.jpg);
+  background-size: cover;
+  background-position: center;
+}
+.screenwrapper{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.screenwrapper .col1, .screenwrapper .col2, .screenwrapper .col3, .screenwrapper .col4{
+  height: 95vh;
+  width: 21%;
+}
+.screenwrapper .col5{
+  height: 95vh;
+  width: 16%;
+}
+.screenwrapper .col1 h3, .screenwrapper .col2 h3, .screenwrapper .col3 h3, .screenwrapper .col4 h3{
+  display: flex;
+  justify-content: center;
+  margin-top: 35%;
+  margin-bottom: 10%;
+  font-family: 'Shadows Into Light', cursive;
+  text-decoration: underline;
+}
+.subscreen ul{
+  display: block;
+  text-align: center;
+  padding: 0%;
+  font-family: Century Gothic;
+
+}
+.subscreen ul li{
+  font-size: 20px;
+}
+
+
+
+
+
+
+.title{
+  margin-top: 150px;
+  margin-left: 200px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #14b6d3;
+}
+.title h1{
+  font-size: 67px;
+  margin-bottom: 30px;
+}
+.title h1 span{
+  color: white;
+}
+.vertical{
+  height: 100%;
+  background: rgba(0, 0, 0, 0.596);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.search-icon{
+  height: 50%;
+  width: 80px;
+}
+.search-icon .bi{
+  margin-top: 40px;
+  margin-left: 24px;
+  color: white;
+  cursor: pointer;
+  font-size: 100px;
+}
+.social-icon{
+  height: 45%;
+  width: 80px;
+  background: #14b6d3;
+  text-align: center;
+  padding-top: 27px;
+  bottom: 0;
+  position: absolute;
+}
+.social-icon .bi{
+  display: block;
+  margin: 40px auto;
+  cursor: pointer;
+}
+
+/* .iframe-container{
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+.iframe-container iframe{
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+} */
+
+
+
+.nav-bar .bi{
+  display: none;
+}
+@media (max-width: 700px) {
+  .vertical{
+      display: none;
+  }
+  .title{
+      margin: 80px 40px;
+  }
+  .title h1{
+      font-size: 50px;
+  }
+  .iframe-container{
+      width: 100%;
+  }
+  .nav-bar{
+      padding: 10px 30px;
+  }
+  .bi-list-ul{
+      position: absolute;
+      right: 20px;
+      top: 10px;
+  }
+  .nav-bar .bi{
+      display: block;
+      color: white;
+      margin: 10px 25px;
+      font-size: 22px;
+      cursor: pointer;
+  }
+  .nav-link1, .nav-link2{
+      height: 100vh;
+      width: 200px;
+      background: rgba(0, 0, 0, 0.664);
+      position: absolute;
+      top: 0;
+      right: -200px;
+      text-align: left;
+      z-index: 2;
+  }
+  .nav-link1 ul a{
+      display: flex;
+      margin-right: 15px;
+  }
+  .nav-link2 a{
+      display: flex;
+      margin-top: 5px;
+  }
+}

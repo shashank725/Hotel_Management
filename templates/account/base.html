@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,94 +8,91 @@
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <style>
-      .ball {
-        overflow: hidden;
-        position: absolute;
-        border-radius: 100%;
-        opacity: 0.7;
-      }
+    body{
+      font-family: "Poppins", sans-serif;
+      background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.658), rgba(0, 0, 0, 0.678)), url("/static/1760763.jpg");
+    }
+    .collapse{
+      margin-top: 35px;
+      margin-left: 50px;
+    }
+    .screenwrapper{
+      display: flex;
+      flex-direction: column;
+    }
+    .header{
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+      margin-left: 75px;
+    }
+    .header ul li a{
+      text-decoration: none;
+      font-size: 1.3rem;
+      color: white;
+    }
+    {% block style %} {% endblock %}
+
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+      <div class="container-fluid">
+        <a class="navbar-brand" href=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'system:homepage' %}" style="color: white; font-size: 22px; padding: 5px 20px; border: 1px solid white;">Home</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+              <a class="nav-link" href="{% url 'system:RoomList' %}" style="color: white; font-size: 22px; padding: 5px 20px; border: 1px solid white; margin-right: 70px;">Book Your Stay</a>
+          </form>
+        </div>
+      </div>
+    </nav>
     
     {% block body %}
 
     {% if messages %}
-    <div style="margin: 5px; text-align: center;">
+    <div style="position: fixed; top: 0; left: 45%; z-index: -1;">
       <strong>Messages:</strong>
       <ul>
         {% for message in messages %}
-        <li>{{message}}</li>
+        <li style="list-style: none;">{{message}}</li>
         {% endfor %}
       </ul>
     </div>
     {% endif %}
 
-    <div style="margin: 80px 100px;">
-      <strong style="font-size: x-large;">Menu :</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}" style="font-size: 1.2rem;">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}" style="font-size: 1.2rem;">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}" style="font-size: 1.2rem;">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}" style="font-size: 1.2rem;">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    <div class="container">
-      <div class="col-sm-6 col-sm-offset-3">
-        {% block content %}
-        {% endblock %}
-        {% endblock %}
-        {% block extra_body %}
-        {% endblock %}    
+    <div class="screenwrapper">
+
+      <div class="header">
+        <strong style="font-size: 30px;">Menu :</strong>
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+          <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+          {% else %}
+          <li><a href="{% url 'account_login' %}">Sign In</a></li>
+          <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
       </div>
+
+      <div class="container">
+          {% block content %}
+          {% endblock %}
+          {% endblock %}
+          {% block extra_body %}
+          {% endblock %}
+      </div>
+      
     </div>
 
-
-    <script>
-      // Some random colors
-      const colors = ["#3CC157", "#2AA7FF", "#1B1B1B", "#FCBC0F", "#F85F36"];
-
-      const numBalls = 50;
-      const balls = [];
-
-      for (let i = 0; i < numBalls; i++) {
-        let ball = document.createElement("div");
-        ball.classList.add("ball");
-        ball.style.background = colors[Math.floor(Math.random() * colors.length)];
-        ball.style.left = `${Math.floor(Math.random() * 100)}vw`;
-        ball.style.top = `${Math.floor(Math.random() * 100)}vh`;
-        ball.style.transform = `scale(${Math.random()})`;
-        ball.style.width = `${Math.random()}em`;
-        ball.style.height = ball.style.width;
-        
-        balls.push(ball);
-        document.body.append(ball);
-      }
-
-      // Keyframes
-      balls.forEach((el, i, ra) => {
-        let to = {
-          x: Math.random() * (i % 2 === 0 ? -11 : 11),
-          y: Math.random() * 12
-        };
-
-        let anim = el.animate(
-          [
-            { transform: "translate(0, 0)" },
-            { transform: `translate(${to.x}rem, ${to.y}rem)` }
-          ],
-          {
-            duration: (Math.random() + 1) * 2000, // random duration
-            direction: "alternate",
-            fill: "both",
-            iterations: Infinity,
-            easing: "ease-in-out"
-          }
-        );
-      });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   </body>
 </html>

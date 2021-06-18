@@ -1,134 +1,48 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block tittle %}{% endblock %}</title>
-    <link rel="stylesheet" href=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    {% block head %} {% endblock %}
-    <link rel="stylesheet" href="{% static 'system/base.css' %}">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block tittle %} {% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap");
+    body{
+      font-family: "Poppins", sans-serif;
+    }
+    .collapse{
+      margin-top: 35px;
+      margin-left: 50px;
+    }
+    {% block style %} {% endblock %}
+  </style>
+  {% block head %} {% endblock %}
 </head>
 <body>
-  <header>
-    <div class="wrapper">
-
-      <ul>
-        <li class="active"><a href="{% url 'system:homepage' %}" style="position: fixed; left: 7rem; size: 10rem;">Home</a></li>
-        <li class="same"><a href="#" style="margin-right: 120px;">Menu</a></li>
-        {% if user.is_authenticated %}
-        <li class="same"><a href="{% url 'system:BookingView' %}">Book Your Stay</a></li>
-        {% else %}
-        <li class="same"><a href="http://127.0.0.1:8000/accounts/login/">Book Your Stay</a></li>
-        {% endif %}
-      </ul>
-    </div>
-
-    <div class="closer">
-      <div class="line"></div>
-    </div>
-
-    <div class="navbar toggle">
-      <div class="bodywrapper">
-        <div class="screenwrapper">
-          <div class="col1">
-            <h3>Hotel</h3>
-            <div class="subscreen">
-              <ul>
-                <li>Location & Position</li>
-                <li>Lifestyle</li>
-                <li>Virtual Tour</li>
-                <li>Our Story</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col2">
-            <h3>Rooms</h3>
-            <div class="subscreen">
-              <ul>
-                <li>Standard</li>
-                <li>Connecting Room</li>
-                <li>Deluxe</li>
-                <li>King/Queen</li>
-                <li>Suite</li>
-                <li>Penthouse</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col3">
-            <h3>Dinning</h3>
-            <div class="subscreen">
-              <ul>
-                <li>Wine Cellar</li>
-                <li>SeaScape Cocktail Bar</li>
-                <li>Rooftop Terrace</li>
-                <li>SeaScape Restaurant</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col4">
-            <h3>Services</h3>
-            <div class="subscreen">
-              <ul>
-                <li>Romantic Spa</li>
-                <li>Fitness & Sailing</li>
-                <li>Meeting & Events</li>
-                <li>Romantic Retreat</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col5">
-            <div class="subscreen5">
-              <ul>
-                <li style="margin-top: 70%;">Offers</li>
-                <li>Gallery</li>
-                <li>Journal</li>
-                <li>Contact Us</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <div class="container-fluid">
+      <a class="navbar-brand" href=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'system:homepage' %}" style="color: white; font-size: 22px; padding: 5px 20px; border: 1px solid white;">Home</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+            <a class="nav-link" href="{% url 'system:RoomList' %}" style="color: white; font-size: 22px; padding: 5px 20px; border: 1px solid white; margin-right: 70px;">Book Your Stay</a>
+        </form>
       </div>
-      <div class="login" style="position: fixed; bottom: 65px; left: 47%; font-size: 1.5rem; font-family: 'Shadows Into Light', cursive; border: 1px solid azure; padding: 2px 10px;">
-      {% if user.is_authenticated %}
-        <a href="http://127.0.0.1:8000/accounts/logout/" style="color: azure;">Logout</a>
-      {% else %}
-        <a href="http://127.0.0.1:8000/accounts/login/" style="color: azure;">Sign In | Sign Up</a>
-      {% endif %}
-      </div>
-
-      <div class="cross"></div>
     </div>
+  </nav>
 
+  {% block content %}
 
-  </header>
+  {% endblock %}
 
-
-    {% block content %}
-
-
-    {% endblock %}
-
-
-    <script src=
-    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-    </script>
-    <script src=
-    "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
-    </script>
-    <script src=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
-    </script>
-    <script>
-      document.querySelector('.closer').addEventListener('click', () => {
-          document.querySelector('.navbar').classList.toggle('toggle');
-        })
-
-        document.querySelector('.cross').addEventListener('click', () => {
-          document.querySelector('.navbar').classList.toggle('toggle');
-        })
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

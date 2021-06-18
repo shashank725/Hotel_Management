@@ -1,8 +1,7 @@
 body{
 	margin:0;
 	color:#6a6f8c;
-	background-image: linear-gradient(to right bottom, rgba(0,.0,.0,.5), rgba(0,.0,.0,.5)), url(219778.jpg);
-	background-position: center;
+	background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.377), rgba(0,.0,.0,.6)), url(1760753.jpg);
 	background-size: cover;
 	font:600 16px/18px 'Open Sans',sans-serif;
 
@@ -12,9 +11,9 @@ body{
 	margin:auto;
 	margin-top:85px;
 	max-width:525px;
-	min-height:700px;
+	min-height:600px;
 	position:relative;
-	background: url(honeymoon-suites-post-ranch-inn-pacific-suite.jpg) no-repeat center;
+	background: url(pool--v9337673.jpg) no-repeat center;
   	background-size: cover;
 	box-shadow:0 14px 20px 0 rgba(0,0,0,.24),0 17px 60px 0 rgba(0,0,0,.19);
 }
@@ -23,7 +22,7 @@ body{
 	height:100%;
 	position:absolute;
 	padding:90px 60px 50px 70px;
-	background:rgba(1, 159, 180, 0.493);
+	background:rgba(1, 159, 180, 0.418);
 }
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
@@ -49,16 +48,18 @@ body{
 .login-html .tab{
 	font-size:22px;
 	padding-bottom:7px;
- 	 margin-left: 80px;
- 	 margin-bottom: 12px;
+ 	margin-bottom: 12px;
 	display:inline-block;
 	border-bottom:2px solid transparent;
 }
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
+	margin-top: -10px;
 	color:#fff;
-  font-size: 30px;
+  	font-size: 30px;
 	border-color:#1161ee;
+	margin-bottom: 20px;
+	margin-left: 95px;
 }
 .login-form{
 	min-height:345px;
@@ -90,6 +91,7 @@ body{
 .login-form .group .label{
 	color: #4ecef5;
 	font-size:15px;
+	margin-top: 10px;
 }
 .login-form .group .button{
 	background:#4ecef5;
@@ -127,9 +129,10 @@ body{
 }
 .hr{
 	height:2px;
-	margin:59px 0 40px 0;
+	margin:59px 0 55px 0;
 	background: black;
 }
 .foot-lnk{
 	text-align:center;
+	font-size: 19px;
 }

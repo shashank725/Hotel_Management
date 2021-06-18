@@ -1,16 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% for room in room_list %}
-    <h2>{{ room }}</h2>
-    {% endfor %}
+{% extends 'system/base.html' %}
+{% load static %}
 
+{% block tittle %} Room List {% endblock %}
+{% block style %}
+body{
+      background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url({% static 'system/Santorini-Sunset.jpg.optimal.jpg' %});
+      background-position: center;
+      background-size: cover;
+    }
+    .screenwrapper{
+      padding-top: 50px;
+      height: 100vh;
+      width: 95vw;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+    .card{
+      margin: 10px 25px;
+    }
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <div class="screenwrapper">
+        {% for room_category, room_url in room_list %}
+            <div class="card" style="width: 18rem;">
+              <img src="{% static 'system/std.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-body" style="color: azure; background-color: rgba(0, 0, 0, 0.829);">
+                <h5 class="card-title">{{ room_category }}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="{{ room_url }}" class="btn btn-primary d-flex justify-content-center" style="background-color: #17dcff;">Book Your Stay</a>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

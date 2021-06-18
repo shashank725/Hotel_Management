@@ -9,6 +9,15 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
+import environ
+env = environ.Env(
+# set casting, default value
+DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
+
 import os.path
 from pathlib import Path
 
@@ -22,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#@3pua)_^#@irgl354$a+n(rh=wzvg7t7zyis@o9p#5*6oy0uh'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -125,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/kolkata'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -135,16 +144,16 @@ USE_TZ = True
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL= '/book/'
+LOGIN_REDIRECT_URL= '/room_list/'
 
-SOCIALACCOUNT_PROVIDERS = SOCIALACCOUNT_PROVIDERS = {
+SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '69663139476-g1oaql9evk21q5ike78rfq3dmok0l5cq.apps.googleusercontent.com',
-            'secret': 'cyq-hSAkN2KzPrgciNBFtsGx',
+            'client_id': env('client_id'),
+            'secret': env('secret'),
             'key': ''
         }
     }
@@ -158,6 +167,8 @@ SOCIALACCOUNT_PROVIDERS = SOCIALACCOUNT_PROVIDERS = {
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static',]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
