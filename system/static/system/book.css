@@ -89,9 +89,10 @@ body{
 	background:rgba(0, 0, 0, 0.1);
 }
 .login-form .group .label{
-	color: #4ecef5;
+	color: white;
 	font-size:15px;
 	margin-top: 10px;
+	margin-bottom: 5px;
 }
 .login-form .group .button{
 	background:#4ecef5;

@@ -1,38 +1,50 @@
 from django.views.decorators.cache import never_cache
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, Http404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from .models import Booking, Room
 from .forms import AvailabilityForm
+from django.contrib.auth.decorators import login_required
 import datetime
-
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.sites.shortcuts import get_current_site
+# Payment
+from hotel import settings
+import razorpay
+razorpay_client = razorpay.Client(auth=(settings.razorpay_id, settings.razorpay_account_id))
+razorpay_client.set_app_details({"title" : "Django", "version" : "3.2.3"})
 
 # Create your views here.
-
+@never_cache
 def homepage(request):
     return render(request, 'system/index.html')
 
-@never_cache
+
+@login_required
 def RoomListView(request):
     room=Room.objects.all()[0]
+    # print(room)
     room_categories=dict(room.categories)
     # print(room_categories)
     room_values=room_categories.values()
     # print('cat=', room_values)
     room_list=[]
     for room_category in room_categories:
+        # print(room_category)
         room=room_categories.get(room_category)
         # print(room)
         room_url=reverse('system:BookingView', kwargs={'category':room_category})
         # print(room_url)
         room_list.append((room, room_url))
+        # print(room_list)
     context={
         'room_list':room_list,
     }
     # print(room_list)
     return render(request, 'system/room_list.html', context)
+
 
 """
 class BookingView(generic.FormView):
@@ -57,7 +69,6 @@ class BookingView(generic.FormView):
         else:
             return HttpResponse('This category of rooms are booked.')
 """
-
 class BookingView(generic.View):
     def get(self, request, *args, **kwargs):
         category=self.kwargs.get('category', None)
@@ -86,15 +97,38 @@ class BookingView(generic.View):
                 available_rooms.append(room)
         if len(available_rooms) > 0:
             room = available_rooms[0]
+            print(category)
+            # To get room amount
+            amt = Room.objects.all()[0]
+            amt_categories = dict(amt.categories_amount)
+            tamount = amt_categories.get(category)
             booking = Booking.objects.create(
-                user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out']
+                user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out'], amount=tamount
             )
             booking.save()
-            return HttpResponse(booking)
-        else:
-            return HttpResponse('This category of rooms are booked.')
 
-class BookingList(generic.ListView):
+            order_currency = 'INR'
+
+            # order_amount = tamount
+            # order_currency = 'INR'
+            # order_receipt = booking.order_id
+            # print(booking.order_id)
+            # notes = {'Shipping address': 'Bommanahalli, Bangalore'}   # OPTIONAL
+            # razorpay_client.order.create(amount=tamount*100, currency=order_currency, receipt=order_receipt, notes=notes, payment_capture='0')
+
+            # notes = {"address": "Glug, NIT Dgp"}
+            # razorpay_order = razorpay_client.order.create(dict(amount=tamount*100, currency=order_currency, notes = notes, receipt=booking.order_id, payment_capture='0'))
+            # print(razorpay_order)
+            # booking.razorpay_order_id = razorpay_order['id']
+            # print(razorpay_order['id'])
+            # booking.save()
+            # return render(request, 'system:BookingList')
+            return HttpResponseRedirect(reverse('system:BookingList'))
+        else:
+            return HttpResponse('<h1>Sorry ! This room is not available.</h1><br><h2>Try booking another one.</h2>')
+
+
+"""class BookingList(generic.ListView):
     model = Booking
     def get_queryset(self, *args, **kwargs):
         if self.request.user.is_staff:
@@ -102,7 +136,37 @@ class BookingList(generic.ListView):
             return booking_list
         else:
             booking_list = Booking.objects.filter(user=self.request.user)
-            return booking_list
+            return booking_list"""
+
+def BookingList(request):
+    if request.method == 'GET':
+        callback_url = 'http://'+ str(get_current_site(request))+"/booking_list/"
+        print(callback_url)
+        if request.user.is_staff:
+            booking_list = Booking.objects.all()
+            print(booking_list)
+            context = {'booking_list':booking_list, 'callback_url':callback_url, 'settings_razorpay_id':settings.razorpay_id,}
+            return render(request, 'system/booking_list.html', context)
+        else:
+            booking_list = Booking.objects.filter(user=request.user)
+            context = {'booking_list':booking_list, 'callback_url':callback_url, 'settings_razorpay_id':settings.razorpay_id,}
+            print(settings.razorpay_id)
+            return render(request, 'system/booking_list.html', context)
+    # if request.method == 'POST':
+    #     try:
+    #         payment_id = request.POST.get('razorpay_payment_id', '')
+    #         order_id = request.POST.get('razorpay_order_id','')
+    #         signature = request.POST.get('razorpay_signature','')
+    #         params_dict = { 
+    #         'razorpay_order_id': order_id, 
+    #         'razorpay_payment_id': payment_id,
+    #         'razorpay_signature': signature
+    #         }
+    #         try:
+    #             order_db = Order.objects.get(razorpay_order_id=order_id)
+    #         except:
+    #            raise Http404
+
 
 class CancelBookingView(generic.DeleteView):
     model = Booking

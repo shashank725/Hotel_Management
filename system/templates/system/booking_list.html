@@ -20,9 +20,10 @@
           <h2>{{booking.room.number}}</h2>
           <h3>{{booking.get_room_category}}</h3>
           <p>From: {{booking.check_in}} <br>To: {{booking.check_out}} <br> Beds: {{booking.room.beds}} </p>
-          <h5 style="margin-bottom: 0; color: black;">Payment Status :</h5>
-          <a href="#" style="margin-top: 3px;">Confrim Booking</a><br>
-          <a href="{{booking.get_cancel_booking_url}}" style="background: crimson; margin-top: 25px;">Cancel Booking</a>
+          <h5 style="margin-bottom: 0; color: black;">Payment Status : {{ booking.payment_status }}</h5>
+          <button class="saveBtn" id="rzp-button1" style="background: #23c186; margin-top: 5px;">Pay</button><br>
+          <a href="{{booking.get_cancel_booking_url}}" style="margin-top: 20px;">Cancel Booking</a>
+          <div id="amt">{{ booking.amount }}</div>
         </div>
       </div>
     </div>
@@ -30,4 +31,42 @@
   </div>
 </div>
 
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_xvrtITRBUPQ471", // Enter the Key ID generated from the Dashboard
+    "amount": "2500", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Glug",
+    "description": "Hotels and Restaurants",
+    "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "{{callback_url}}",
+    "notes": {
+        "address": "NIT Dgp"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+btns = document.getElementsByClassName("saveBtn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function(e){
+    rzp1.open();
+    e.preventDefault();
+});
+    }
+</script>
 {% endblock %}
