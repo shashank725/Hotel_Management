@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Explore </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'system/explore.css' %}">
+        <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        
+        <!-- header -->
+        <header class = "header" id = "header">
+            <div class = "head-top">
+                <div class = "site-name">
+                    <span>Home</span>
+                </div>
+                <div class = "site-nav">
+                    <span id = "nav-btn">MENU <i class = "fas fa-bars"></i></span>
+                </div>
+            </div>
+
+            <div class = "head-bottom flex">
+                <h2>{{category}} Rooms</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est quos veniam impedit numquam itaque voluptatum, dicta asperiores accusamus, eligendi neque ut incidunt, modi harum molestiae atque natus officia minima.</p>
+            </div>
+        </header>
+        <!-- end of header -->
+
+        <!-- side navbar -->
+        <div class = "sidenav" id = "sidenav">
+            <span class = "cancel-btn" id = "cancel-btn">
+                <i class = "fas fa-times"></i>
+            </span>
+
+            <ul class = "navbar">
+                <li><a href = "#header">Book Your Stay</a></li>
+                <li><a href = "#services">Room Categories</a></li>
+                <li><a href = "#rooms">Lorem ipsum</a></li>
+                {% if user.is_authenticated %}
+                <li><a href = "#customers">Booking List</a></li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <button class = "btn log-in" style="margin-top: 50px;">Log Out</button>
+            {% else %}
+            <button class = "btn sign-up" style="margin-top: 20px;">Log In</button>
+            {% endif %}
+        </div>
+        <!-- end of side navbar -->
+
+        <!-- fullscreen modal -->
+        <div id = "modal">
+        </div>
+        <!-- end of fullscreen modal -->
+
+        <!-- body content  -->
+        <div class="bluebg">
+        <section class = "rooms sec-width" id = "rooms">
+            <div class = "title">
+                <h2 style="font-size: 20px;">Rooms</h2>
+            </div>
+            <div class = "rooms-container">
+                <!-- single room -->
+                {% for room in room_list %}
+                <article class = "room">
+                    <div class = "room-image">
+                        <img src = "" alt = "room image">
+                    </div>
+                    <div class = "room-text">
+                        <!-- <h3>Luxury Rooms</h3> -->
+                        <ul>
+                            <li>
+                                <i class = "fas fa-arrow-alt-circle-right"></i>
+                                Lorem ipsum dolor sit amet.
+                            </li>
+                            <li>
+                                <i class = "fas fa-arrow-alt-circle-right"></i>
+                                Lorem ipsum dolor sit amet.
+                            </li>
+                            <li>
+                                <i class = "fas fa-arrow-alt-circle-right"></i>
+                                Lorem ipsum dolor sit amet.
+                            </li>
+                        </ul>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus exercitationem repellendus maxime ullam tempore architecto provident unde expedita quam beatae, dolore eligendi molestias sint tenetur incidunt voluptas. Unde corporis qui iusto vitae. Aut nesciunt id iste, cum esse commodi nemo?</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla corporis quasi officiis cumque, fugiat nostrum sunt, tempora animi dicta laborum beatae ratione doloremque. Delectus odio sit eius labore, atque quo?</p>
+                        <p style="margin-top: 10px; font-size: 20px; font-weight: 450;">People : <span>{{ room.people }}</span></p>
+                        <p class = "rate">
+                            Actual Prize : <span style="text-decoration:  2px solid line-through crimson;">  {{ room.actual_prize }}  </span> <br> Offered Prize : <span>{{ room.offer_prize }}</span>
+                        </p>
+                    </div>
+                </article>
+                {% endfor %}
+                <!-- end of single room -->
+            </div>
+        </section>
+        </div>
+
+        <section class = "customers" id = "customers">
+            <div class = "sec-width">
+                <div class = "title">
+                    <h2" style="font-size: 20px;">Book Your Stay</h2>
+                </div>
+                <div class = "customers-container">
+                    <!-- single customer -->
+                    <form id="booking-form" action="" method="POST">
+                        {% csrf_token %}
+                          <div class="login-wrap">
+                            <div class="login-html">
+                              <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" style="font-family: Century Gothic;">{{ category }}</label>
+                              <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+                              <div class="login-form">
+                                <div class="sign-in-htm">
+                                    <div class="group">
+                                        <label for="id_check_in" class="label">Check In</label>
+                                        <input type="datetime-local" name="check_in" id="id_check_in" class="input">
+                                    </div>
+                                    <div class="group">
+                                        <label for="id_check_out" class="label">Check Out</label>
+                                        <input type="datetime-local" name="check_out" id="id_check_out" class="input">
+                                    </div>
+                                    <div class="group">
+                                        <label for="id_people" class="label">People</label>
+                                        <input type="number" name="people" id="id_people" class="input">
+                                    </div>
+                                    <!-- <div class="groeup">
+                                        <label for="id_room_category" class="label">Room Category :</label>
+                                        <select name="room_category" id="id_room_category" class="select">
+                                        <option value="STD" style="color: black; font-family: Century Gothic;">Standard</option>
+                                        <option value="CR" style="color: black; font-family: Century Gothic;">Connecting Room</option>
+                                        <option value="DEL" style="color: black; font-family: Century Gothic;">Deluxe</option>
+                                        <option value="KIN" style="color: black; font-family: Century Gothic;">King</option>
+                                        <option value="QUE" style="color: black; font-family: Century Gothic;">Queen</option>
+                                        <option value="SUI" style="color: black; font-family: Century Gothic;">Suite</option>
+                                        <option value="PEN" style="color: black; font-family: Century Gothic;">Penthouse</option>
+                                    </select>
+                                    </div> -->
+                                    <div class="group">
+                                        <button type="submit" class="button" style="font-family: Century Gothic;">Book</button>
+                                    </div>
+                                    <div class="hr"></div>
+                                    {% if user.is_authenticated %}
+                                    <div class="foot-lnk">
+                                        <a href="{% url 'system:BookingList' %}" style="color: white; font-weight: 700; text-decoration: none;">Your Bookings</a>
+                                    </div>
+                                    {% else %}
+                                    <div class="foot-lnk">
+                                        <a href="http://127.0.0.1:8000/accounts/login/" style="color: black;">Sign In</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                    <!-- end of single customer -->
+                </div>
+            </div>
+        </section>
+
+        <section class = "services sec-width" id = "services">
+            <div class = "title">
+                <h2>Services</h2>
+            </div>
+            <div class = "services-container">
+                <!-- single service -->
+                <article class = "service">
+                    <div class = "service-icon">
+                        <span>
+                            <i class = "fas fa-utensils"></i>
+                        </span>
+                    </div>
+                    <div class = "service-content">
+                        <h2>Food Service/ Food Runner</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias blanditiis tempore officia accusamus asperiores. Illum maxime eligendi necessitatibus laudantium iste nisi pariatur doloremque ut illo similique voluptatum enim distinctio perferendis, ad ipsam aspernatur omnis rem autem ex, reiciendis corporis suscipit!</p>
+                        <button type = "button" class = "btn">Know More</button>
+                    </div>
+                </article>
+                <!-- end of single service -->
+                <!-- single service -->
+                <article class = "service">
+                    <div class = "service-icon">
+                        <span>
+                            <i class = "fas fa-swimming-pool"></i>
+                        </span>
+                    </div>
+                    <div class = "service-content">
+                        <h2>Refreshment</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias blanditiis tempore officia accusamus asperiores. Illum maxime eligendi necessitatibus laudantium iste nisi pariatur doloremque ut illo similique voluptatum enim distinctio perferendis, ad ipsam aspernatur omnis rem autem ex, reiciendis corporis suscipit!</p>
+                        <button type = "button" class = "btn">Know More</button>
+                    </div>
+                </article>
+                <!-- end of single service -->
+                <!-- single service -->
+                <article class = "service">
+                    <div class = "service-icon">
+                        <span>
+                            <i class = "fas fa-broom"></i>
+                        </span>
+                    </div>
+                    <div class = "service-content">
+                        <h2>Housekeeping</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias blanditiis tempore officia accusamus asperiores. Illum maxime eligendi necessitatibus laudantium iste nisi pariatur doloremque ut illo similique voluptatum enim distinctio perferendis, ad ipsam aspernatur omnis rem autem ex, reiciendis corporis suscipit!</p>
+                        <button type = "button" class = "btn">Know More</button>
+                    </div>
+                </article>
+                <!-- end of single service -->
+                <!-- single service -->
+                <article class = "service">
+                    <div class = "service-icon">
+                        <span>
+                            <i class = "fas fa-door-closed"></i>
+                        </span>
+                    </div>
+                    <div class = "service-content">
+                        <h2>Room Security</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias blanditiis tempore officia accusamus asperiores. Illum maxime eligendi necessitatibus laudantium iste nisi pariatur doloremque ut illo similique voluptatum enim distinctio perferendis, ad ipsam aspernatur omnis rem autem ex, reiciendis corporis suscipit!</p>
+                        <button type = "button" class = "btn">Know More</button>
+                    </div>
+                </article>
+                <!-- end of single service -->
+            </div>
+        </section>
+        <!-- end of body content -->
+        
+        <script>
+            const navBtn = document.getElementById('nav-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const sideNav = document.getElementById('sidenav');
+            const modal = document.getElementById('modal');
+
+            navBtn.addEventListener("click", function(){
+                sideNav.classList.add('show');
+                modal.classList.add('showModal');
+            });
+
+            cancelBtn.addEventListener('click', function(){
+                sideNav.classList.remove('show');
+                modal.classList.remove('showModal');
+            });
+
+            window.addEventListener('click', function(event){
+                if(event.target === modal){
+                    sideNav.classList.remove('show');
+                    modal.classList.remove('showModal');
+                }
+            });
+        </script>
+    </body>
+</html>

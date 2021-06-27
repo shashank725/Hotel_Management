@@ -4,13 +4,15 @@
 {% block tittle %} Room List {% endblock %}
 {% block style %}
 body{
-      background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url({% static 'system/Santorini-Sunset.jpg.optimal.jpg' %});
+      background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url({% static 'system/Santorini-Sunset.jpg.optimal.jpg' %});
       background-position: center;
       background-size: cover;
     }
+    html{
+      scroll-behavior: smooth;
+    }
     .screenwrapper{
       padding-top: 50px;
-      height: 100vh;
       width: 95vw;
       display: flex;
       flex-wrap: wrap;
@@ -20,18 +22,38 @@ body{
     }
     .card{
       margin: 10px 25px;
+      margin-bottom: 30px;
+    }
+    .card:nth-child(odd) .card-body{
+      background-color: rgba(0, 0, 0, 0.829);
+    }
+    .card:nth-child(odd) .card-body .btn{
+      background-color: #14b6d3;
+    }
+    .card:nth-child(even) .card-body{
+      background-color: #14b6d3;
+    }
+    .card:nth-child(even) .card-body .btn{
+      background-color: rgba(0, 0, 0, 0.829);
+    }
+    p{
+      font-weight: 300;
+    }
+    span{
+      font-weight: 500;
     }
 {% endblock %}
 
 {% block content %}
     <div class="screenwrapper">
-        {% for room_category, room_url in room_list %}
+        {% for cat, cat_url in cat_list  %}
             <div class="card" style="width: 18rem;">
-              <img src="{% static 'system/std.jpg' %}" class="card-img-top" alt="...">
-              <div class="card-body" style="color: azure; background-color: rgba(0, 0, 0, 0.829);">
-                <h5 class="card-title">{{ room_category }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{{ room_url }}" class="btn btn-primary d-flex justify-content-center" style="background-color: #17dcff;">Book Your Stay</a>
+              <img src="{{ cat.category_picture.url }}" width="280" height="191" class="card-img-top" alt="...">
+              <div class="card-body" style="color: azure;">
+                <h5 class="card-title">{{ cat }}</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit.<br><br>
+                <span>Actual Prize : <span style="text-decoration:  2px solid line-through crimson;">{{ cat.actual_prize_range }}</span> <br> Offered Prize : {{ cat.offer_prize_range }}</span></p>
+                <a href="{{ cat_url }}" class="btn btn-primary d-flex justify-content-center">Explore Rooms</a>
               </div>
             </div>
         {% endfor %}

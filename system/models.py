@@ -4,19 +4,25 @@ from django.urls import reverse
 from django.utils import timezone
 # Create your models here.
 
-class Room(models.Model):
-    number=models.IntegerField()
-    categories={
-        ('STD','Standard'), ('CR', 'Connecting Room'), ('DEL', 'Deluxe'), ('KIN', 'King'), ('QUE', 'Queen'), ('SUI', 'Suite'), ('PEN', 'Penthouse')
-    }
-    categories_amount = {
-        ('STD', 100), ('CR', 200), ('DEL', 300), ('KIN', 400), ('QUE', 500), ('SUI', 600), ('PEN', 700)
-    }
-    category=models.CharField(max_length=3, choices=categories, default='STD')
-    beds=models.IntegerField(default=1)
+class Cat(models.Model):
+    category = models.CharField(primary_key=True, max_length=100)
+    category_picture = models.ImageField(upload_to = 'cat', null=True, blank=True)
+    actual_prize_range = models.CharField(max_length=100)
+    offer_prize_range = models.CharField(max_length=100)
 
     def __str__(self):
-        return '%d : %s with %d beds.' % (self.number, self.category, self.beds)
+        return f'{self.category}'
+
+class Room(models.Model):
+    room_category = models.ForeignKey(Cat, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    people = models.IntegerField()
+    picture = models.ImageField(upload_to = 'room/', null=True, blank=True)
+    actual_prize = models.CharField(max_length=100)
+    offer_prize = models.CharField(max_length=100)
+
+    def __str__(self):
+        return '%d : %s with People : %d' % (self.number, self.room_category, self.people)
 
 class Booking(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -24,10 +30,10 @@ class Booking(models.Model):
     check_in=models.DateTimeField()
     check_out=models.DateTimeField()
     payment_status_choices = {
-        ('SUC', 'SUCCESS'),
-        ('FAI', 'FAILURE'),
-        ('PEN', 'PENDING')}
-    payment_status = models.CharField(max_length=3, choices=payment_status_choices, default='PEN')
+        ('SUCCESS', 'SUCCESS'),
+        ('FAILURE', 'FAILURE'),
+        ('PENDING', 'PENDING')}
+    payment_status = models.CharField(max_length=10, choices=payment_status_choices, default='PENDING')
     amount = models.FloatField()
     order_id = models.CharField(unique=True, max_length=100, null=True, blank=True, default=None)
     datetime_of_payment = models.DateTimeField(default=timezone.now)
@@ -46,16 +52,11 @@ class Booking(models.Model):
     def __str__(self):
         return f'{self.room} from {self.check_in} to {self.check_out}.'
 
-    def get_room_category(self):
-        room_categories=dict(self.room.categories)
-        room_category=room_categories.get(self.room.category)
-        return room_category
-
-    def get_payment_status(self):
-        payment=dict(self.payment_status)
-        status=payment.get(self.payment_status)
-        return status
-
+    # def get_room_category(self):
+    #     room_categories=dict(self.room.category)
+    #     room_category=room_categories.get(self.room.category)
+    #     return room_category
+    
     def get_cancel_booking_url(self):
         return reverse('system:CancelBookingView', args=[self.pk])
 

@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from .models import Booking, Room
+from .models import Booking, Room, Cat
 from .forms import AvailabilityForm
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -24,26 +24,77 @@ def homepage(request):
 
 @login_required
 def RoomListView(request):
-    room=Room.objects.all()[0]
-    # print(room)
-    room_categories=dict(room.categories)
-    # print(room_categories)
-    room_values=room_categories.values()
-    # print('cat=', room_values)
-    room_list=[]
-    for room_category in room_categories:
-        # print(room_category)
-        room=room_categories.get(room_category)
-        # print(room)
-        room_url=reverse('system:BookingView', kwargs={'category':room_category})
-        # print(room_url)
-        room_list.append((room, room_url))
-        # print(room_list)
-    context={
-        'room_list':room_list,
-    }
-    # print(room_list)
+    # cat_room_list=[]
+    # for i in range(0,7):
+    #     cat_room_list.append(Cat.objects.all()[i])
+    # # print(cat_room_list)
+    cat_room_list=Cat.objects.all()
+    cat_list = []
+    for cat in cat_room_list:
+        # print(cat)
+        cat_url = reverse('system:explore', kwargs={'category':cat})
+        cat_list.append((cat,cat_url))
+    context = {'cat_list':cat_list,}
     return render(request, 'system/room_list.html', context)
+    # room=Room.objects.all()[0]
+    # room_categories=dict(room.categories)
+    # room_values=room_categories.values()
+    # room_list=[]
+    # for room_category in room_categories:
+    #     room=room_categories.get(room_category)
+    #     room_url=reverse('system:BookingView', kwargs={'category':room_category})
+    #     room_list.append((room, room_url))
+    # context={
+    #     'room_list':room_list,
+    # }
+    # return render(request, 'system/room_list.html', context)
+
+class Explore(generic.View):
+    def get(self, request, *args, **kwargs):
+        category=self.kwargs.get('category', None)
+        form=AvailabilityForm()
+        room_list=Room.objects.filter(room_category=category)
+        print(room_list)
+        context={'category':category, 'room_list':room_list,}
+        return render(request, 'system/explore.html', context)
+        # if len(room_list)>0:
+        #     room=room_list[0]
+        #     room_category=dict(room.categories).get(room.category, None)
+        #     context = {
+        #         'room_category': room_category,
+        #         'form':form,
+        #     }
+        #     return render(request, 'system/book.html', context)
+        # else:
+        #     return HttpResponse('Category does not exit !')
+
+    def post(self, request, *args, **kwargs):
+        category = self.kwargs.get('category', None)
+        form=AvailabilityForm(request.POST)
+        if form.is_valid():
+            data=form.cleaned_data
+        else:
+            return HttpResponseRedirect(reverse('system:explore'))
+        room_list = Room.objects.filter(room_category=category, people=data['people'])
+        print(room_list)
+        available_rooms = []
+        for room in room_list:
+            if check_availability(room, data['check_in'], data['check_out']):
+                available_rooms.append(room)
+        if len(available_rooms) > 0:
+            room = available_rooms[0]
+            print(category)
+            # To get room amount
+            # amt = Room.objects.all()[0]
+            # amt_categories = dict(amt.categories_amount)
+            # tamount = amt_categories.get(category)
+            booking = Booking.objects.create(
+                user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out'], amount=100
+            )
+            booking.save()
+            return HttpResponseRedirect(reverse('system:BookingList'))
+        else:
+            return HttpResponse('<h1>Sorry ! This room is not available.</h1><br><h2>Try booking another one.</h2>')
 
 
 """
@@ -69,6 +120,7 @@ class BookingView(generic.FormView):
         else:
             return HttpResponse('This category of rooms are booked.')
 """
+
 class BookingView(generic.View):
     def get(self, request, *args, **kwargs):
         category=self.kwargs.get('category', None)
@@ -77,6 +129,7 @@ class BookingView(generic.View):
         if len(room_list)>0:
             room=room_list[0]
             room_category=dict(room.categories).get(room.category, None)
+            print(room_category)
             context = {
                 'room_category': room_category,
                 'form':form,

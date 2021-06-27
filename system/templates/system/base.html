@@ -6,43 +6,220 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block tittle %} {% endblock %}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap");
-    body{
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+    :root{
+      --transition: all 0.7s ease;
+      --yellow: #17dcff;
+      --dark: #292826;
+    }
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+    html{
+        scroll-behavior: smooth;
+    }
+    .btn1{
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        width: 140px;
+        display: block;
+        margin: 15px auto;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .btn1:hover{
+        opacity: 0.85;
+    }
+    .flex{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    @media(max-width: 500px){
+        body{
+            font-size: 14px;
+        }
+    }
+
+    /* header */
+    .header{
+        color: #fff;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-content: stretch;
+    }
+    .head-top{
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .head-top span{
       font-family: "Poppins", sans-serif;
+      margin-left: 45px;
+      margin-right: 25px;
+      cursor: pointer;
+      font-size: 22px;
+      padding: 8px 20px;
+      border: 1px solid white;
+      letter-spacing: 2px;
+      transition: var(--transition);
     }
-    .collapse{
-      margin-top: 35px;
-      margin-left: 50px;
+    .head-top span:hover{
+      color: var(--yellow);
     }
+    @media(max-width: 500px){
+        .head-btn{
+            font-size: 17px;
+        }
+        .head-top span{
+          font-size: medium;
+          margin: auto;
+      }
+    }
+
+    /* side nav */
+    .sidenav{
+        background: var(--dark);
+        color: #fff;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: -100%;
+        width: 300px;
+        padding: 20px;
+        transition: var(--transition);
+        z-index: 10;
+    }
+
+    /********/
+    .sidenav.show{
+        right: 0;
+    }
+    /*************/
+    .cancel-btn{
+        position: absolute;
+        right: 25px;
+        font-size: 22px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .cancel-btn:hover{
+        opacity: 0.7;
+    }
+    .navbar{
+        margin-top: 50px;
+        list-style: none;
+        padding: 12px;
+    }
+    .navbar li a{
+        color: #fff;
+        text-transform: capitalize;
+        text-decoration: none;
+        padding: 15px 0;
+        display: block;
+        border-bottom: 0.5px solid rgba(249, 211, 66, 0.3);
+        opacity: 0.8;
+        letter-spacing: 1.5px;
+        transition: var(--transition);
+    }
+    .navbar li a:hover{
+        padding-left: 12px;
+    }
+    .sign-up, .log-in{
+        background: var(--yellow);
+        color: #fff;
+    }
+    @media(max-width: 400px){
+        .sidenav{
+            width: 100vw;
+        }
+    }
+
     {% block style %} {% endblock %}
   </style>
   {% block head %} {% endblock %}
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-    <div class="container-fluid">
-      <a class="navbar-brand" href=""></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'system:homepage' %}" style="color: white; font-size: 22px; padding: 5px 20px; border: 1px solid white;">Home</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-            <a class="nav-link" href="{% url 'system:RoomList' %}" style="color: white; font-size: 22px; padding: 5px 20px; border: 1px solid white; margin-right: 70px;">Book Your Stay</a>
-        </form>
-      </div>
+  <!-- header -->
+  <header class = "header" id = "header">
+    <div class = "head-top">
+        <div class = "site-name">
+            <span>Home</span>
+        </div>
+        <div class = "site-nav">
+            <span id = "nav-btn">MENU <i class = "fas fa-bars"></i></span>
+        </div>
     </div>
-  </nav>
+
+  </header>
+<!-- end of header -->
+
+<!-- side navbar -->
+<div class = "sidenav" id = "sidenav">
+  <span class = "cancel-btn" id = "cancel-btn">
+      <i class = "fas fa-times"></i>
+  </span>
+
+  <ul class = "navbar">
+      <li><a href = "#header">Book Your Stay</a></li>
+      <li><a href = "#services">Room Categories</a></li>
+      <li><a href = "#rooms">Lorem ipsum</a></li>
+      {% if user.is_authenticated %}
+      <li><a href = "#customers">Booking List</a></li>
+      {% endif %}
+  </ul>
+  {% if user.is_authenticated %}
+  <button class = "btn1 log-in" style="margin-top: 50px;">Log Out</button>
+  {% else %}
+  <button class = "btn1 sign-up" style="margin-top: 20px;">Log In</button>
+  {% endif %}
+</div>
+<!-- end of side navbar -->
+
+<!-- fullscreen modal -->
+<div id = "modal"></div>
+<!-- end of fullscreen modal -->
+  
 
   {% block content %}
 
   {% endblock %}
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script>
+    const navBtn = document.getElementById('nav-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const sideNav = document.getElementById('sidenav');
+    const modal = document.getElementById('modal');
+  
+    navBtn.addEventListener("click", function(){
+        sideNav.classList.add('show');
+        modal.classList.add('showModal');
+    });
+  
+    cancelBtn.addEventListener('click', function(){
+        sideNav.classList.remove('show');
+        modal.classList.remove('showModal');
+    });
+  
+    window.addEventListener('click', function(event){
+        if(event.target === modal){
+            sideNav.classList.remove('show');
+            modal.classList.remove('showModal');
+        }
+    });
+  </script>
 </body>
 </html>
