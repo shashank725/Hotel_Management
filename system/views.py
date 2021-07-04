@@ -55,7 +55,8 @@ class Explore(generic.View):
         form=AvailabilityForm()
         room_list=Room.objects.filter(room_category=category)
         print(room_list)
-        context={'category':category, 'room_list':room_list,}
+        cat = Cat.objects.filter(category=category)
+        context={'category':category, 'cat':cat, 'room_list':room_list,}
         return render(request, 'system/explore.html', context)
         # if len(room_list)>0:
         #     room=room_list[0]

@@ -19,6 +19,7 @@
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+        font-family: 'Playfair Display', serif;
     }
     html{
         scroll-behavior: smooth;
@@ -66,7 +67,7 @@
       align-items: center;
     }
     .head-top span{
-      font-family: "Poppins", sans-serif;
+      /* font-family: "Poppins", sans-serif; */
       margin-left: 45px;
       margin-right: 25px;
       cursor: pointer;
@@ -156,7 +157,7 @@
   <header class = "header" id = "header">
     <div class = "head-top">
         <div class = "site-name">
-            <span>Home</span>
+            <span><a href="{% url 'system:homepage' %}" style="text-decoration: none; color: white;">Home</a></span>
         </div>
         <div class = "site-nav">
             <span id = "nav-btn">MENU <i class = "fas fa-bars"></i></span>
@@ -173,9 +174,8 @@
   </span>
 
   <ul class = "navbar">
-      <li><a href = "#header">Book Your Stay</a></li>
-      <li><a href = "#services">Room Categories</a></li>
-      <li><a href = "#rooms">Lorem ipsum</a></li>
+      <li><a href = "{% url 'system:homepage' %}" style="text-decoration: none; color: white;">Book Your Stay</a></li>
+      <li><a href = "#rooms">Lorem ipsum</a></li><br>
       {% if user.is_authenticated %}
       <li><a href = "#customers">Booking List</a></li>
       {% endif %}
