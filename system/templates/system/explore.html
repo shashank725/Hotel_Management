@@ -11,7 +11,7 @@
     <body>
         
         <!-- header -->
-        <header class = "header" id = "header" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{cat.category_picture}}) center/cover no-repeat;">
+        <header class = "header" id = "header" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{cat.category_picture.url}}) center/cover no-repeat;">
             <div class = "head-top">
                 <div class = "site-name">
                     <span>Home</span>
@@ -88,7 +88,7 @@
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla corporis quasi officiis cumque, fugiat nostrum sunt, tempora animi dicta laborum beatae ratione doloremque. Delectus odio sit eius labore, atque quo?</p>
                         <p style="margin-top: 10px; font-size: 20px; font-weight: 450;">People : <span>{{ room.people }}</span></p>
                         <p class = "rate">
-                            Actual Prize : <span style="text-decoration:  2px solid line-through crimson;">  {{ room.actual_prize }}  </span> <br> Offered Prize : <span>{{ room.offer_prize }}</span>
+                            Actual Price : <span style="text-decoration:  2px solid line-through crimson;">  ₹ {{ room.actual_prize }}  </span> <br> Offered Price : <span>₹ {{ room.offer_prize }}</span>
                         </p>
                     </div>
                 </article>
