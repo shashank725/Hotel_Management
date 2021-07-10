@@ -450,10 +450,39 @@ img{
 	font-size: 19px;
     color: white;
 }
-
 .customer:hover{
     transform: translateY(-18px);
 }
+
+.room-avail{
+    margin-top: 50px;
+}
+.sec-room-avail{
+    min-height: 50px;
+    background:#17dcff34;
+    display: flex;
+    padding: 5px 25px;
+    justify-content: space-around;
+}
+.avail{
+    margin: 15px 20px;
+}
+.avail ul li{
+    list-style: square;
+    color: white;
+    font-size: 18px;
+}
+.booked{
+    margin: 15px 20px;
+}
+.booked ul li{
+    color: white;
+    font-size: 18px;
+}
+.booked ul li span{
+    font-weight: 900;
+}
+
 @media(min-width: 992px){
     .customers-container{
         display: grid;

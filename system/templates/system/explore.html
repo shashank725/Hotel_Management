@@ -11,7 +11,7 @@
     <body>
         
         <!-- header -->
-        <header class = "header" id = "header" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{cat.category_picture}}) center/cover no-repeat;">
+        <header class = "header" id = "header" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{cat.category_picture.url}}) center/cover no-repeat;">
             <div class = "head-top">
                 <div class = "site-name">
                     <span>Home</span>
@@ -88,7 +88,7 @@
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla corporis quasi officiis cumque, fugiat nostrum sunt, tempora animi dicta laborum beatae ratione doloremque. Delectus odio sit eius labore, atque quo?</p>
                         <p style="margin-top: 10px; font-size: 20px; font-weight: 450;">People : <span>{{ room.people }}</span></p>
                         <p class = "rate">
-                            Actual Prize : <span style="text-decoration:  2px solid line-through crimson;">  {{ room.actual_prize }}  </span> <br> Offered Prize : <span>{{ room.offer_prize }}</span>
+                            Actual Prize : <span style="text-decoration:  2px solid line-through crimson;"> ₹ {{ room.actual_price }}  </span> <br> Offered Prize : <span> ₹ {{ room.offer_price }}</span>
                         </p>
                     </div>
                 </article>
@@ -101,7 +101,7 @@
         <section class = "customers" id = "customers">
             <div class = "sec-width">
                 <div class = "title">
-                    <h2" style="font-size: 20px;">Book Your Stay</h2>
+                    <h2" style="font-size: 23px;">Book Your Stay</h2>
                 </div>
                 <div class = "customers-container">
                     <!-- single customer -->
@@ -156,6 +156,33 @@
                           </div>
                         </form>
                     <!-- end of single customer -->
+                </div>
+
+                <div class="room-avail">
+                    <div class = "title">
+                        <h2" style="font-size: 20px;">Room Available</h2>
+                    </div>
+                    <div class="sec-room-avail" style="padding-bottom: 10px;">
+                        <div class="avail">
+                            {% for room in avail %}
+                            <ul>
+                                <li>{{room}}</li>
+                            </ul>
+                            {% endfor %}
+                        </div>
+                        <div class="booked">
+                            {% for t in temp %}
+                            <ul>
+                                <li>{{ t.room }} can be booked after <span>{{t.check_out}}</span></li>
+                            </ul>
+                            {% endfor %}
+                            {% for b in booked %}
+                            <ul>
+                                <li>{{ b.room }} : can be booked before <span>{{b.check_in}}</span> or after <span>{{b.check_out}}</span></li>
+                            </ul>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

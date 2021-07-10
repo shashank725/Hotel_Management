@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'system.apps.SystemConfig',
-    #Django Allauth
+    # Django Filter
+    'django_filters',
+    # Django Allauth
     'django.contrib.sites',
     'allauth',
     'allauth.account',

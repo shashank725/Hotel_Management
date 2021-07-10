@@ -55,8 +55,25 @@ class Explore(generic.View):
         form=AvailabilityForm()
         room_list=Room.objects.filter(room_category=category)
         print(room_list)
-        cat = Cat.objects.filter(category=category)
-        context={'category':category, 'cat':cat, 'room_list':room_list,}
+        cat = Cat.objects.get(category=category)
+        # To check availabile room
+        booked=[]
+        avail=[]
+        temp=[]
+        for room in room_list:
+            bookings = Booking.objects.filter(room=room)
+            print("booking=",bookings)
+            if len(bookings) == 0:
+                avail.append(room)
+            else:
+                for book in bookings:
+                    print(book)
+                    a = book.can_be_booked()
+                    if a == None:
+                        temp.append(book)
+                    else:
+                        booked.append(book)
+        context={'category':category, 'cat':cat, 'room_list':room_list, 'avail':avail, 'temp':temp, 'booked':booked}
         return render(request, 'system/explore.html', context)
         # if len(room_list)>0:
         #     room=room_list[0]
@@ -71,7 +88,7 @@ class Explore(generic.View):
 
     def post(self, request, *args, **kwargs):
         category = self.kwargs.get('category', None)
-        form=AvailabilityForm(request.POST)
+        form=AvailabilityForm(category, request.POST)
         if form.is_valid():
             data=form.cleaned_data
         else:
@@ -122,6 +139,7 @@ class BookingView(generic.FormView):
             return HttpResponse('This category of rooms are booked.')
 """
 
+# Not using
 class BookingView(generic.View):
     def get(self, request, *args, **kwargs):
         category=self.kwargs.get('category', None)
