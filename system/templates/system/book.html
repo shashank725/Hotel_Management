@@ -12,43 +12,51 @@
     {% csrf_token %}
       <div class="login-wrap">
         <div class="login-html">
-          <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" style="font-family: Century Gothic;">{{ room_category }}</label>
+          <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" style="font-family: Century Gothic;">{{ category }}</label>
           <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
           <div class="login-form">
             <div class="sign-in-htm">
-              <!-- <div class="groeup">
-                <label for="id_room_category" class="label">Room Category :</label>
-                <select name="room_category" id="id_room_category" class="select">
-                  <option value="STD" style="color: black; font-family: Century Gothic;">Standard</option>
-                  <option value="CR" style="color: black; font-family: Century Gothic;">Connecting Room</option>
-                  <option value="DEL" style="color: black; font-family: Century Gothic;">Deluxe</option>
-                  <option value="KIN" style="color: black; font-family: Century Gothic;">King</option>
-                  <option value="QUE" style="color: black; font-family: Century Gothic;">Queen</option>
-                  <option value="SUI" style="color: black; font-family: Century Gothic;">Suite</option>
-                  <option value="PEN" style="color: black; font-family: Century Gothic;">Penthouse</option>
-              </select>
-              </div> -->
-              <div class="group">
-                <label for="id_check_in" class="label">Check In</label>
-                <input type="datetime-local" name="check_in" id="id_check_in" class="input">
-              </div>
-              <div class="group">
-                <label for="id_check_out" class="label">Check Out</label>
-                <input type="datetime-local" name="check_out" id="id_check_out" class="input">
-              </div>
-              <div class="group">
-                <button type="submit" class="button" style="font-family: Century Gothic;">Book</button>
-              </div>
-              <div class="hr"></div>
-              {% if user.is_authenticated %}
-              <div class="foot-lnk">
-                <a href="{% url 'system:BookingList' %}" style="color: black; text-decoration: none;">Your Bookings</a>
-              </div>
-              {% else %}
-              <div class="foot-lnk">
-                <a href="http://127.0.0.1:8000/accounts/login/" style="color: black;">Sign In</a>
-              </div>
-              {% endif %}
+                <div class="group">
+                  <!-- <label for="id_che" class="label"></label> -->
+                  <input type="hidden" name="category" id="id_category" class="input" value="{{ cat }}">
+                </div>
+                <div class="group">
+                    <label for="id_check_in" class="label">Check In</label>
+                    <input type="datetime-local" name="check_in" id="id_check_in" class="input">
+                </div>
+                <div class="group">
+                    <label for="id_check_out" class="label">Check Out</label>
+                    <input type="datetime-local" name="check_out" id="id_check_out" class="input">
+                </div>
+                <div class="group">
+                    <label for="id_people" class="label">People</label>
+                    <input type="number" name="people" id="id_people" class="input">
+                </div>
+                <!-- <div class="groeup">
+                    <label for="id_room_category" class="label">Room Category :</label>
+                    <select name="room_category" id="id_room_category" class="select">
+                    <option value="STD" style="color: black; font-family: Century Gothic;">Standard</option>
+                    <option value="CR" style="color: black; font-family: Century Gothic;">Connecting Room</option>
+                    <option value="DEL" style="color: black; font-family: Century Gothic;">Deluxe</option>
+                    <option value="KIN" style="color: black; font-family: Century Gothic;">King</option>
+                    <option value="QUE" style="color: black; font-family: Century Gothic;">Queen</option>
+                    <option value="SUI" style="color: black; font-family: Century Gothic;">Suite</option>
+                    <option value="PEN" style="color: black; font-family: Century Gothic;">Penthouse</option>
+                </select>
+                </div> -->
+                <div class="group">
+                    <button type="submit" class="button" style="font-family: Century Gothic;">Book</button>
+                </div>
+                <div class="hr"></div>
+                {% if user.is_authenticated %}
+                <div class="foot-lnk">
+                    <a href="{% url 'system:BookingList' %}" style="color: white; font-weight: 700; text-decoration: none;">Your Bookings</a>
+                </div>
+                {% else %}
+                <div class="foot-lnk">
+                    <a href="http://127.0.0.1:8000/accounts/login/" style="color: black;">Sign In</a>
+                </div>
+                {% endif %}
             </div>
           </div>
         </div>

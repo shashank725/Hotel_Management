@@ -3,11 +3,11 @@ from django.shortcuts import get_object_or_404, render, redirect, Http404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.urls import reverse, reverse_lazy
-from django.utils import timezone
 from .models import Booking, Room, Cat
 from .forms import AvailabilityForm
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.sites.shortcuts import get_current_site
 # Payment
@@ -32,7 +32,8 @@ def RoomListView(request):
     cat_list = []
     for cat in cat_room_list:
         # print(cat)
-        cat_url = reverse('system:explore', kwargs={'category':cat})
+        cat_url = reverse('system:explore', args=[cat])
+        print('URL=', cat_url)
         cat_list.append((cat,cat_url))
     context = {'cat_list':cat_list,}
     return render(request, 'system/room_list.html', context)
@@ -48,6 +49,38 @@ def RoomListView(request):
     #     'room_list':room_list,
     # }
     # return render(request, 'system/room_list.html', context)
+
+def Explore(request, **args):
+    category=args[0]
+    print(category)
+    form=AvailabilityForm()
+    room_list=Room.objects.filter(room_category=category)
+    print(room_list)
+    cat = Cat.objects.get(category=category)
+    # To check availabile room
+    booked=[]
+    avail=[]
+    temp=[]
+    for room in room_list:
+        bookings = Booking.objects.filter(room=room)
+        print("booking=",bookings)
+        if len(bookings) == 0:
+            avail.append(room)
+        else:
+            for book in bookings:
+                # For removeing old checkout booking
+                now=timezone.now()
+                if now + datetime.timedelta(days=1)<book.check_out:
+                # ----
+                    print(book)
+                    a = book.can_be_booked()
+                    if a == None:
+                        temp.append(book)
+                    else:
+                        booked.append(book)
+                
+    context={'category':category, 'cat':cat, 'room_list':room_list, 'avail':avail, 'temp':temp, 'booked':booked}
+    return render(request, 'system/explore.html', context)
 
 class Explore(generic.View):
     def get(self, request, *args, **kwargs):
@@ -67,28 +100,23 @@ class Explore(generic.View):
                 avail.append(room)
             else:
                 for book in bookings:
-                    print(book)
-                    a = book.can_be_booked()
-                    if a == None:
-                        temp.append(book)
-                    else:
-                        booked.append(book)
+                    # For removeing old checkout booking
+                    now=timezone.now()
+                    if now + datetime.timedelta(days=1)<book.check_out:
+                    # ----
+                        print(book)
+                        a = book.can_be_booked()
+                        if a == None:
+                            temp.append(book)
+                        else:
+                            booked.append(book)
+                    
         context={'category':category, 'cat':cat, 'room_list':room_list, 'avail':avail, 'temp':temp, 'booked':booked}
         return render(request, 'system/explore.html', context)
-        # if len(room_list)>0:
-        #     room=room_list[0]
-        #     room_category=dict(room.categories).get(room.category, None)
-        #     context = {
-        #         'room_category': room_category,
-        #         'form':form,
-        #     }
-        #     return render(request, 'system/book.html', context)
-        # else:
-        #     return HttpResponse('Category does not exit !')
 
     def post(self, request, *args, **kwargs):
         category = self.kwargs.get('category', None)
-        form=AvailabilityForm(category, request.POST)
+        form=AvailabilityForm(request.POST)
         if form.is_valid():
             data=form.cleaned_data
         else:
@@ -144,25 +172,36 @@ class BookingView(generic.View):
     def get(self, request, *args, **kwargs):
         category=self.kwargs.get('category', None)
         form=AvailabilityForm()
-        room_list=Room.objects.filter(category=category)
-        if len(room_list)>0:
-            room=room_list[0]
-            room_category=dict(room.categories).get(room.category, None)
-            print(room_category)
-            context = {
-                'room_category': room_category,
-                'form':form,
-            }
-            return render(request, 'system/book.html', context)
-        else:
-            return HttpResponse('Category does not exit !')
+        room_list=Room.objects.filter(room_category=category)
+        print(room_list)
+        cat = Cat.objects.get(category=category)
+        context={'cat':cat, 'room_list':room_list,}
+        return render(request, 'system/book.html', context)
+        # category=self.kwargs.get('category', None)
+        # form=AvailabilityForm()
+        # room_list=Room.objects.filter(room_category=category)
+        # if len(room_list)>0:
+        #     room=room_list[0]
+        #     room_category=dict(room.categories).get(room.category, None)
+        #     print(room_category)
+        #     context = {
+        #         'room_category': room_category,
+        #         'form':form,
+        #     }
+        #     return render(request, 'system/book.html', context)
+        # else:
+        #     return HttpResponse('Category does not exit !')
 
     def post(self, request, *args, **kwargs):
         category = self.kwargs.get('category', None)
-        room_list = Room.objects.filter(category=category)
         form=AvailabilityForm(request.POST)
         if form.is_valid():
             data=form.cleaned_data
+        else:
+            return HttpResponseRedirect(reverse('system:explore'))
+        print('CATEGORY=', data['category'])
+        room_list = Room.objects.filter(room_category=category, people=data['people'])
+        print(room_list)
         available_rooms = []
         for room in room_list:
             if check_availability(room, data['check_in'], data['check_out']):
@@ -171,15 +210,39 @@ class BookingView(generic.View):
             room = available_rooms[0]
             print(category)
             # To get room amount
-            amt = Room.objects.all()[0]
-            amt_categories = dict(amt.categories_amount)
-            tamount = amt_categories.get(category)
+            # amt = Room.objects.all()[0]
+            # amt_categories = dict(amt.categories_amount)
+            # tamount = amt_categories.get(category)
             booking = Booking.objects.create(
-                user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out'], amount=tamount
+                user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out'], amount=100
             )
             booking.save()
+            return HttpResponseRedirect(reverse('system:BookingList'))
+        else:
+            return HttpResponse('<h1>Sorry ! This room is not available.</h1><br><h2>Try booking another one.</h2>')
 
-            order_currency = 'INR'
+        # category = self.kwargs.get('category', None)
+        # room_list = Room.objects.filter(category=category)
+        # form=AvailabilityForm(request.POST)
+        # if form.is_valid():
+        #     data=form.cleaned_data
+        # available_rooms = []
+        # for room in room_list:
+        #     if check_availability(room, data['check_in'], data['check_out']):
+        #         available_rooms.append(room)
+        # if len(available_rooms) > 0:
+        #     room = available_rooms[0]
+        #     print(category)
+        #     # To get room amount
+        #     amt = Room.objects.all()[0]
+        #     amt_categories = dict(amt.categories_amount)
+        #     tamount = amt_categories.get(category)
+        #     booking = Booking.objects.create(
+        #         user=self.request.user, room=room, check_in=data['check_in'], check_out=data['check_out'], amount=tamount
+        #     )
+        #     booking.save()
+
+        #     order_currency = 'INR'
 
             # order_amount = tamount
             # order_currency = 'INR'
@@ -195,9 +258,9 @@ class BookingView(generic.View):
             # print(razorpay_order['id'])
             # booking.save()
             # return render(request, 'system:BookingList')
-            return HttpResponseRedirect(reverse('system:BookingList'))
-        else:
-            return HttpResponse('<h1>Sorry ! This room is not available.</h1><br><h2>Try booking another one.</h2>')
+        #     return HttpResponseRedirect(reverse('system:BookingList'))
+        # else:
+        #     return HttpResponse('<h1>Sorry ! This room is not available.</h1><br><h2>Try booking another one.</h2>')
 
 
 """class BookingList(generic.ListView):

@@ -1,11 +1,12 @@
 from django import forms
 from .models import Room, Booking, Cat
-from .views import check_availability
+# from .views import check_availability
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 class AvailabilityForm(forms.Form):
+    category = forms.CharField(max_length=100)
     check_in = forms.DateTimeField(input_formats='%Y-%m-%dT%H:%M', required=True)
     check_out = forms.DateTimeField(input_formats='%Y-%m-%dT%H:%M', required=True)
     people = forms.IntegerField(required=True)
