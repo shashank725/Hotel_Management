@@ -7,8 +7,36 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'system/explore.css' %}">
         <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
     <body>
+        {% if message %}
+        <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal-dialog">
+              
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.746);">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align: center; color: white; font-size: 22px;">Sorry !!</h4>
+                  </div>
+                  <div class="modal-body" style="background-color: #14b6d3af; color: white;">
+                    <p style="font-size: 17px;">Your desired Room is not available in the given Timeline. Please change your <b>Timeline / Capacity</b> or choose another <b> Category</b>. </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            
+        </div>
+        {% endif %}
         
         <!-- header -->
         <header class = "header" id = "header" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{cat.category_picture.url}}) center/cover no-repeat;">
@@ -114,6 +142,10 @@
                               <div class="login-form">
                                 <div class="sign-in-htm">
                                     <div class="group">
+                                        <!-- <label for="id_che" class="label"></label> -->
+                                        <input type="hidden" name="category" id="id_category" class="input" value="{{ cat }}">
+                                    </div>
+                                    <div class="group">
                                         <label for="id_check_in" class="label">Check In</label>
                                         <input type="datetime-local" name="check_in" id="id_check_in" class="input">
                                     </div>
@@ -125,18 +157,6 @@
                                         <label for="id_people" class="label">People</label>
                                         <input type="number" name="people" id="id_people" class="input">
                                     </div>
-                                    <!-- <div class="groeup">
-                                        <label for="id_room_category" class="label">Room Category :</label>
-                                        <select name="room_category" id="id_room_category" class="select">
-                                        <option value="STD" style="color: black; font-family: Century Gothic;">Standard</option>
-                                        <option value="CR" style="color: black; font-family: Century Gothic;">Connecting Room</option>
-                                        <option value="DEL" style="color: black; font-family: Century Gothic;">Deluxe</option>
-                                        <option value="KIN" style="color: black; font-family: Century Gothic;">King</option>
-                                        <option value="QUE" style="color: black; font-family: Century Gothic;">Queen</option>
-                                        <option value="SUI" style="color: black; font-family: Century Gothic;">Suite</option>
-                                        <option value="PEN" style="color: black; font-family: Century Gothic;">Penthouse</option>
-                                    </select>
-                                    </div> -->
                                     <div class="group">
                                         <button type="submit" class="button" style="font-family: Century Gothic;">Book</button>
                                     </div>
@@ -273,6 +293,12 @@
                     sideNav.classList.remove('show');
                     modal.classList.remove('showModal');
                 }
+            });
+        </script>
+        <script>
+            $(window).load(function()
+            {
+                $('#myModal').modal('show');
             });
         </script>
     </body>

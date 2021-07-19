@@ -2,6 +2,7 @@ from django import forms
 from .models import Room, Booking, Cat
 # from .views import check_availability
 
+from django.core import validators
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -12,7 +13,7 @@ class AvailabilityForm(forms.Form):
     people = forms.IntegerField(required=True)
 
 # validators=[validate_book],
-# def validate_book(value):
+# def validate_book(self, value):
 #     if value % 2 != 0:
 #         raise ValidationError(
 #             _('%(value)s No room is available in the given duration'),
@@ -20,24 +21,35 @@ class AvailabilityForm(forms.Form):
 #          )
 
 
-    # def clean_recipients(self, category):
-    #     print('form='category)
-    #     data = self.cleaned_data
-    #     room_list = Room.objects.filter(room_category=category, people=data['people'])
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     room_list = Room.objects.filter(room_category=cleaned_data.get('category'), people=cleaned_data.get('people'))
     #     available_rooms = []
     #     for room in room_list:
-    #         if check_availability(room, data['check_in'], data['check_out']):
+    #         if check_availability(room, cleaned_data.get('check_in'), cleaned_data.get('check_out')):
     #             available_rooms.append(room)
     #     if len(available_rooms) == 0:
     #         raise ValidationError("No room is available in the given duration")
+    #     # return super().clean()
 
-    # def clean(self, category):
-    #     print('form='category)
-    #     room_list = Room.objects.filter(room_category=category, people=self.people)
+    # def clean(self):
+    #     super(AvailabilityForm, self).clean()
+    #     room_list = Room.objects.filter(room_category=self.cleaned_data.get('category'), people=self.cleaned_data.get('people'))
     #     available_rooms = []
     #     for room in room_list:
-    #         if check_availability(room, self.check_in, self.check_out):
+    #         if check_availability(room, self.cleaned_data.get('check_in'), self.cleaned_data.get('check_out')):
     #             available_rooms.append(room)
     #     if len(available_rooms) == 0:
-    #         raise ValidationError('No room is available in the given duration')
-    #     return super().clean(category)
+    #         self.errors['check_in'] = self.error_class(['No room is available in the given duration'])
+    #         raise ValidationError("No room is available in the given duration")
+    #     return self.cleaned_data
+
+def check_availability(room, check_in, check_out):
+    avail_list=[]
+    booking_list=Booking.objects.filter(room=room)
+    for booking in booking_list:
+        if booking.check_in > check_out or booking.check_out < check_in:
+            avail_list.append(True)
+        else:
+            avail_list.append(False)
+    return all(avail_list)

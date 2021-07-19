@@ -405,6 +405,8 @@ img{
 	font-size:15px;
 	margin-top: 10px;
 	margin-bottom: 5px;
+    display: flex;
+    
 }
 .login-form .group .button{
 	background:#4ecef5;
