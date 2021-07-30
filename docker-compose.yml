@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+    db:
+        image: postgres
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+        environment:
+            - POSTGRESS_DB=postgres
+            - POSTGRESS_USER=postgres
+            - POSTGRESS_PASSWORD=postgres
+            - "POSTGRES_HOST_AUTH_METHOD=trust"
+    django_gunicorn :
+        build: 
+            context: .
+        # container_name: 
+        # command: python manage.py runserver 0.0.0.0:8000
+        volumes: 
+            - .:/code
+        ports:
+            - "8000:8000"
+        depends_on: 
+            - db
+    nginx :
+        build : ./nginx
+        volumes: 
+            - static:/app/static
+        ports: 
+            - "80:80"
+        depends_on: 
+            - django_gunicorn
+            - db
+
+volumes: 
+    static :
