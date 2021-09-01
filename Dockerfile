@@ -5,7 +5,11 @@ RUN pip install --upgrade pip
 
 WORKDIR /app
 
-COPY . . 
+COPY requirements.txt .
+
 RUN pip install -r requirements.txt
 
-ENTRYPOINT [ "sh", "entrypoint.sh" ]
+COPY . . 
+
+
+# ENTRYPOINT [ "sh", "entrypoint.sh" ]

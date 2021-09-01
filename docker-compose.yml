@@ -9,27 +9,35 @@ services:
             - POSTGRESS_DB=postgres
             - POSTGRESS_USER=postgres
             - POSTGRESS_PASSWORD=postgres
-            - "POSTGRES_HOST_AUTH_METHOD=trust"
+            # - "POSTGRES_HOST_AUTH_METHOD=trust"
     django_gunicorn :
-        build: 
-            context: .
+        build: ./
+        command: >-
+            bash -c "python3 manage.py makemigrations && python3 manage.py migrate
+            --run-syncdb && python3 manage.py collectstatic --no-input && 
+            gunicorn hotel.wsgi:application --workers 3 --bind 0.0.0.0:8000"
         # container_name: 
         # command: python manage.py runserver 0.0.0.0:8000
         volumes: 
-            - .:/code
+            # - .:/app
+            - static:/app/static
+            - media:/app/media
         ports:
             - "8000:8000"
         depends_on: 
             - db
     nginx :
         build : ./nginx
-        volumes: 
+        volumes:
+            - .:/app
             - static:/app/static
+            - media:/app/media
         ports: 
             - "80:80"
         depends_on: 
             - django_gunicorn
             - db
 
-volumes: 
+volumes:
+    media :
     static :
