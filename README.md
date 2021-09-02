@@ -4,7 +4,7 @@
 
 An app where you can book rooms and view your bookings !
 
-<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/home.jpeg" alt="main";/>
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/home.jpeg" alt="main"/>
 
 <img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/home2.jpeg" alt="main2" style="width:200px;"/>
 
