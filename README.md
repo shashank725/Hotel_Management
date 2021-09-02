@@ -4,13 +4,19 @@
 
 An app where you can book rooms and view your bookings !
 
-<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot1.png" alt="main" style="width:200px;"/>
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/home.jpeg" alt="main" style="width:200px;"/>
 
-<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot2.png" alt="menu" style="width:200px;"/>
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/home2.jpeg" alt="main2" style="width:200px;"/>
 
-<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot3.png" alt="book" style="width:200px;"/>
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/room.jpeg" alt="roomlist" style="width:200px;"/>
 
-<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/Screenshot4.png" alt="book" style="width:200px;"/>
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/explore.jpeg" alt="explore" style="width:200px;"/>
+
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/explore2.jpeg" alt="explore2" style="width:200px;"/>
+
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/bookings.jpeg" alt="bookings" style="width:200px;"/>
+
+<img src="https://github.com/shashank725/Hotel_Management/blob/main/system/static/system/cancel.jpeg" alt="cancel" style="width:200px;"/>
 
 <h3>Starting the project</h3>
 
